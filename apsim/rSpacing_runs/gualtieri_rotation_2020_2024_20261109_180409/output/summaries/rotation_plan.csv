@@ -1,0 +1,4 @@
+"Species","Cultivar","Sowing_window","Mineral_N_at_sowing_kg_ha","Irrigated"
+"Wheat","Hartog","10-oct / 20-nov",35,FALSE
+"Maize","B_110","1-apr / 10-may",55,TRUE
+"Soybean","Generic_MG1","1-may / 15-jun",0,TRUE

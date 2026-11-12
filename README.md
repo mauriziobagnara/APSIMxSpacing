@@ -1,121 +1,212 @@
-# Spacing — CarbonFarming Italia
+## Spacing — CarbonFarming Italia
 
-Piattaforma di simulazione agronomica per la stima del sequestro di carbonio in sistemi agricoli italiani. Utilizza [APSIM Next Generation](https://www.apsim.info/) come motore di simulazione e un algoritmo Multi-Start Simplex per la calibrazione dei parametri colturali.
+Piattaforma di simulazione agronomica per la stima del sequestro di carbonio nei sistemi agricoli italiani. Usa **APSIM Next Generation** come motore di simulazione e include strumenti C# per simulazioni batch, run on-demand, gestione agronomica e calibrazione.
 
-## Struttura del repository
+### Versione C# stabile di riferimento
 
-```
+La baseline stabile corrente è la **soluzione completa v0.09.05**.
+
+Principali caratteristiche consolidate:
+
+- `Spacing.Tool1` per simulazioni batch su griglia;
+- `Spacing.Tool2` per simulazioni on-demand tramite coordinate o request JSON;
+- propagazione di `run_id`, metadata, coordinate, periodo, suolo, meteo, rotazione e management;
+- profili di suolo stratificati forniti dal client;
+- cultivar e override dei parametri APSIM;
+- fertilizzazione frazionata con tipi supportati dal modello, incluso `UreaN`;
+- irrigazione automatica con soglia, target, dose massima e finestra temporale;
+- output JSON, manifest, APSIM DataStore SQLite e CSV;
+- correzione runtime del Manager irriguo tramite `ISoilWater`.
+
+La soluzione v0.09.05 resta il riferimento finché una successiva modifica C# non viene verificata e versionata. Input, cultivar, scenari e configurazioni devono essere gestiti prioritariamente dal client R/rSpacing quando non richiedono una modifica del sorgente C#.
+
+### Struttura del repository
+
+```text
 spacing/
 └── apsim/
-    ├── apsim source/          # Sorgente APSIM Next Generation (destinato a diventare git submodule)
+    ├── apsim source/                 # Sorgente APSIM Next Generation
     │   ├── APSIM.Core/
     │   ├── APSIM.Shared/
     │   ├── DeepCloner.Core/
     │   └── Models/
     ├── src/
-    │   ├── Spacing.Core/      # Libreria principale: adattatori, dominio, simulazione, calibrazione
-    │   ├── Spacing.Tool1/     # Tool batch: simulazioni su griglia nazionale
-    │   ├── Spacing.Tool2/     # Tool on-demand: calibrazione + simulazione per coordinata
-    │   ├── runner/            # Runner APSIM legacy (Breath)
-    │   ├── optimizer/         # Implementazione Multi-Start Simplex
-    │   └── source/            # Utilities e funzioni di supporto
-    ├── examples/              # Esempi di file di richiesta (.json)
-    ├── spacing.config.example.json   # Template configurazione (copiare in spacing.config.json)
-    ├── spacing.sln            # Solution Visual Studio
-    └── TR_3745_2825_2020.met  # File meteo di esempio (formato APSIM)
+    │   ├── Spacing.Core/             # Dominio, adattatori, simulazione e calibrazione
+    │   ├── Spacing.Tool1/            # Simulazioni batch
+    │   ├── Spacing.Tool2/            # Simulazioni on-demand e interfaccia machine-to-machine
+    │   ├── runner/                   # Runner APSIM legacy
+    │   ├── optimizer/                # Multi-Start Simplex
+    │   └── source/                   # Utility
+    ├── examples/                     # Request JSON ed esempi rSpacing
+    ├── spacing.config.example.json   # Template di configurazione
+    └── spacing.sln                   # Solution Visual Studio
 ```
 
-## Prerequisiti
+### Prerequisiti
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8)
-- Visual Studio 2022+ oppure Rider / VS Code con estensione C#
-- APSIM Next Generation runtime (incluso nel sorgente sotto `apsim source/`)
-- API backend Spacing in esecuzione (oppure usare `--mock` per lo sviluppo locale)
+- .NET 8 SDK;
+- **Visual Studio 2026** per la baseline di sviluppo corrente;
+- runtime APSIM Next Generation incluso nella soluzione;
+- backend Spacing disponibile, oppure modalità `--mock` per sviluppo e test locali.
 
-## Setup rapido
+### Compilazione
 
-```bash
-# 1. Clonare il repo
-git clone <url> && cd spacing
-
-# 2. Copiare e personalizzare la configurazione
-cp apsim/spacing.config.example.json apsim/spacing.config.json
-# Editare spacing.config.json con DbApiBaseUrl, DbApiKey, path locali, ecc.
-
-# 3. Compilare la solution
+```powershell
 cd apsim
 dotnet build spacing.sln
 ```
 
-## Utilizzo
+Configurazione Visual Studio raccomandata:
 
-### Tool 1 — Simulazioni batch su griglia italiana
-
-Esegue simulazioni su tutte le celle di una regione NUTS2 (o tutta Italia) per un insieme di scenari di rotazione predefiniti.
-
-```bash
-cd apsim
-dotnet run --project src/Spacing.Tool1 -- \
-  --config spacing.config.json \
-  --nuts2 ITC4 \          # Lombardia; omettere per tutta Italia
-  --mock                  # usa dati fittizi (sviluppo)
+```text
+Debug | Any CPU
 ```
 
-Output: `<OutputDir>/tool1_results.csv` con resa per unità di simulazione (cella × suolo × scenario).
+DLL Tool2 attesa dopo la compilazione:
 
-### Tool 2 — Calibrazione e simulazione on-demand
+```text
+src/Spacing.Tool2/bin/Debug/net8.0/spacing-tool2.dll
+```
 
-Esegue la simulazione per una singola coordinata, con calibrazione opzionale dei parametri colturali tramite Multi-Start Simplex.
+### Configurazione
 
-```bash
-# Simulazione diretta
-dotnet run --project src/Spacing.Tool2 -- \
-  --lat 45.4 --lon 9.2 \
-  --rotation "Maize" \
-  --mock
+Copiare il template e personalizzare i percorsi locali:
 
-# Con calibrazione su osservazioni proprie
-dotnet run --project src/Spacing.Tool2 -- \
-  --lat 45.4 --lon 9.2 \
-  --rotation "Maize,Wheat" \
-  --calibrate \
-  --observations miei_dati.csv \  # Province,Crop,Year,DOY,LAI,Yield
-  --yield-weight 0.6 \
-  --lai-weight   0.4 \
-  --simplexes    30
+```powershell
+Copy-Item spacing.config.example.json spacing.config.json
+```
 
-# Da file JSON di richiesta
-dotnet run --project src/Spacing.Tool2 -- \
-  --request examples/rotation_maize_irrigated.json \
-  --calibrate \
+Chiavi principali:
+
+| Chiave | Descrizione |
+|---|---|
+| `DbApiBaseUrl` | URL base del backend Spacing |
+| `DbApiKey` | Chiave API; non deve essere committata |
+| `TempWeatherDir` | Directory dei file meteorologici temporanei |
+| `OutputDir` | Directory degli output |
+| `StartYear`, `EndYear` | Periodo predefinito |
+| `MaxParallelism` | Parallelismo, soprattutto per Tool1 |
+
+`spacing.config.json` deve restare escluso da Git. Usare `spacing.config.example.json` come template.
+
+### Tool 1 — Simulazioni batch
+
+```powershell
+dotnet run --project src/Spacing.Tool1 -- `
+  --config spacing.config.json `
+  --nuts2 ITC4 `
   --mock
 ```
 
-Output JSON su stdout con resa, biomassa, parametri calibrati e path dei CSV di confronto.
+Tool1 esegue scenari multipli e restituisce un risultato batch JSON/CSV con identificativi di run e metadata.
 
-### Parametri di calibrazione
+### Tool 2 — Simulazione on-demand
 
-I range e i valori iniziali dei parametri da calibrare si trovano in `src/Spacing.Tool2/calibration_params.json`. Modificare questo file per aggiungere colture o cambiare i range senza ricompilare.
+#### Coordinate e rotazione semplice
 
-Colture attualmente supportate: **Maize**, **Sorghum**, **Wheat**, **Barley**, **Soybean**.
+```powershell
+dotnet run --project src/Spacing.Tool2 -- `
+  --config spacing.config.json `
+  --lat 45.4 `
+  --lon 9.2 `
+  --rotation Maize `
+  --mock
+```
 
-## Configurazione (`spacing.config.json`)
+#### Request JSON completa
 
-| Chiave | Descrizione | Default di esempio |
-|---|---|---|
-| `DbApiBaseUrl` | URL base del backend Spacing | `http://localhost:8000/api/v1` |
-| `DbApiKey` | Chiave API per l'autenticazione | — |
-| `TempWeatherDir` | Directory per i file `.met` temporanei | `/tmp/spacing/weather` |
-| `OutputDir` | Directory per i risultati delle simulazioni | `/tmp/spacing/output` |
-| `StartYear` / `EndYear` | Periodo di simulazione | `1990` / `2023` |
-| `MaxParallelism` | Simulazioni APSIM in parallelo (Tool 1) | `4` |
+```powershell
+dotnet run --project src/Spacing.Tool2 -- `
+  --config spacing.config.json `
+  --request examples/request.json `
+  --result output/result.json `
+  --manifest output/manifest.json `
+  --mock
+```
 
-> **Nota:** `spacing.config.json` è escluso da git (contiene la chiave API). Usare sempre `spacing.config.example.json` come template.
+Il separatore `--` dopo il progetto è necessario quando si usa `dotnet run`.
 
-## Dipendenze APSIM
+La request può includere:
 
-Il sorgente APSIM Next Generation è incluso in `apsim/apsim source/` come copia diretta. In una versione futura del repository sarà referenziato come git submodule puntando a `ApsimNG/ApsimX`.
+- `run_id` e metadata;
+- latitudine, longitudine e `cell_id`;
+- anni iniziale e finale;
+- profilo di suolo completo;
+- file meteorologico oppure meteo mock/API;
+- colture e cultivar;
+- fertilizzazione e irrigazione;
+- override dei parametri APSIM;
+- percorsi di risultato e manifest.
 
-## Licenza
+### Management agronomico
 
-Questo progetto è proprietario — © Spacing / CarbonFarming-IT. Il codice APSIM Next Generation incluso è soggetto alla [licenza APSIM](https://www.apsim.info/apsim-model-terms-and-conditions/).
+Per ogni coltura sono supportati, secondo il contratto corrente:
+
+- cultivar;
+- lavorazione;
+- finestra, densità, profondità e interfila di semina;
+- azoto minerale e organico;
+- fertilizzazione frazionata;
+- irrigazione automatica;
+- soglia e target irrigui;
+- dose massima per evento;
+- finestra temporale irrigua.
+
+Le cultivar verificate nei workflow di riferimento sono:
+
+| Coltura | Cultivar |
+|---|---|
+| Wheat | `Hartog` |
+| Maize | `B_110` |
+| Soybean | `Generic_MG1` |
+
+### Output
+
+`Spacing.Tool2` può produrre:
+
+- JSON macchina con esito, identificativi, metadata e risultati;
+- manifest della run;
+- file `.apsimx` generato;
+- APSIM DataStore SQLite;
+- CSV giornalieri, Report e riepiloghi colturali;
+- resa e biomassa per coltura;
+- output stratificati del suolo, fra cui acqua, azoto, carbonio, CO2 e N2O quando configurati nel Report APSIM.
+
+I messaggi diagnostici sono inviati su `stderr`; il risultato macchina resta separato e leggibile dal client R.
+
+### Calibrazione e parametri
+
+I parametri e i limiti di calibrazione sono definiti in:
+
+```text
+src/Spacing.Tool2/calibration_params.json
+```
+
+`Spacing.Tool2` supporta anche `parameter_overrides` forniti dalla request. Gli override devono fare riferimento a percorsi APSIM validi; la loro validazione preventiva è gestita preferibilmente nel client rSpacing.
+
+### Integrazione rSpacing
+
+Il client R di riferimento è **rSpacing 0.10.04**. L’integrazione comprende configurazione, request, run-spec, model run reale in modalità mock, importazione JSON/CSV/SQLite, tabelle e grafici.
+
+Il manuale R Markdown di riferimento è:
+
+```text
+rSpacing_v0.10.04_workflow_completo_tutte_funzioni_rev18_rotazione_management_resa_carbonio.Rmd
+```
+
+La modifica del C# non è necessaria per variazioni di input, cultivar, rotazione, fertilizzazione o irrigazione già rappresentabili dal contratto corrente.
+
+### Verifica minima
+
+Prima di considerare stabile una modifica C#:
+
+1. ricompilare `spacing.sln`;
+2. eseguire Tool2 con `--mock`;
+3. verificare `result.json` e `manifest.json`;
+4. verificare la creazione del DataStore e dei CSV;
+5. eseguire il workflow rSpacing end-to-end;
+6. controllare che gli errori tecnici restino distinti da casi agronomici validi, come una resa assente.
+
+### Dipendenze APSIM e licenza
+
+Il sorgente APSIM Next Generation è incluso sotto `apsim source/` ed è soggetto ai termini e alle condizioni APSIM. Il codice Spacing/CarbonFarming Italia resta proprietario, salvo diversa indicazione nei file di licenza del repository.

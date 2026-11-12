@@ -1,0 +1,9 @@
+{
+  "DbApiBaseUrl": "http://localhost:8000/api/v1",
+  "DbApiKey": "",
+  "TempWeatherDir": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_sensitivity/morris_maize_2020_2024_20261109_181920/runs/morris_maize_2020_2024_20261109_181920__morris_0003/weather",
+  "OutputDir": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_sensitivity/morris_maize_2020_2024_20261109_181920/runs/morris_maize_2020_2024_20261109_181920__morris_0003/output",
+  "StartYear": 2020,
+  "EndYear": 2024,
+  "MaxParallelism": 1
+}

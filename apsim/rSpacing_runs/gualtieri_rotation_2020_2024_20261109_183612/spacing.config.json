@@ -1,0 +1,9 @@
+{
+  "DbApiBaseUrl": "http://localhost:8000/api/v1",
+  "DbApiKey": "",
+  "TempWeatherDir": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/weather",
+  "OutputDir": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output",
+  "StartYear": 2020,
+  "EndYear": 2024,
+  "MaxParallelism": 1
+}

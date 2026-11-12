@@ -1,0 +1,38 @@
+{
+  "run_id": "chain01_iter000123",
+  "metadata": {"chain": "1", "iteration": "123", "scenario": "maize_wheat"},
+  "mock": true,
+  "calibrate": false,
+  "lat": 44.49,
+  "lon": 11.34,
+  "cell_id": "BOLOGNA_DEMO",
+  "start_year": 2019,
+  "end_year": 2021,
+  "result_file": "output/chain01_iter000123_result.json",
+  "crops": [
+    {
+      "name": "Maize",
+      "parameter_overrides": {
+        "Phenology.Juvenile.Target.FixedValue": 245.0,
+        "Leaf.Photosynthesis.RUE.FixedValue": 1.65
+      },
+      "management": {
+        "cultivar": "Override",
+        "sowing_date": "15-Apr",
+        "sowing_density": 7.5,
+        "sowing_depth": 50,
+        "row_spacing": 750,
+        "nitrogen_mineral_kg_ha": 80,
+        "split_fertiliser": [
+          {"trigger": "DaysAfterSowing", "days_after_sowing": 35, "amount_kg_n_ha": 80, "fert_type": "UreaN"}
+        ]
+      }
+    },
+    {
+      "name": "Wheat",
+      "parameter_overrides": {"Leaf.Photosynthesis.RUE.FixedValue": 1.40},
+      "management": {"sowing_date": "20-Oct", "sowing_density": 150, "nitrogen_mineral_kg_ha": 60}
+    }
+  ],
+  "cycles": 2
+}

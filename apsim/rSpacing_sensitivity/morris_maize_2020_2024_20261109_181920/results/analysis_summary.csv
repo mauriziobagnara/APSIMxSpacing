@@ -1,0 +1,2 @@
+"analysis_id","method","package","target_crop","output_metric","baseline_output","parameters","trajectories","levels","grid_jump","morris_runs","total_apsim_runs","successful_morris_runs","no_harvest_runs","no_harvest_percent"
+"morris_maize_2020_2024_20261109_181920","Morris elementary effects","sensitivity","Maize","yield",9998.86463558854,6,10,4,2,70,71,70,2,2.85714285714286

@@ -1,0 +1,1354 @@
+{
+  "$type": "Models.Core.Simulations, Models",
+  "Version": 168,
+  "Name": "Spacing_GUALTIERI_RE_MORRIS__GUALTIERI_LOAM_MORRIS_001__morris_maize",
+  "Children": [
+    {
+      "$type": "Models.Storage.DataStore, Models",
+      "Name": "DataStore",
+      "useFirebird": false,
+      "CustomFileName": null,
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Core.Simulation, Models",
+      "Name": "GUALTIERI_RE_MORRIS__GUALTIERI_LOAM_MORRIS_001__morris_maize",
+      "Children": [
+        {
+          "$type": "Models.Clock, Models",
+          "Name": "Clock",
+          "Start": "2020-01-01T00:00:00",
+          "End": "2024-12-31T00:00:00"
+        },
+        {
+          "$type": "Models.Summary, Models",
+          "Name": "Summary",
+          "Verbosity": 100
+        },
+        {
+          "$type": "Models.Climate.Weather, Models",
+          "Name": "Weather",
+          "FileName": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_sensitivity/morris_maize_2020_2024_20261109_181106/runs/morris_maize_2020_2024_20261109_181106__default/weather\\GUALTIERI_RE_MORRIS_2020_2024.met"
+        },
+        {
+          "$type": "Models.Soils.Arbitrator.SoilArbitrator, Models",
+          "Name": "SoilArbitrator",
+          "Children": [],
+          "Enabled": true,
+          "ReadOnly": false
+        },
+        {
+          "$type": "Models.MicroClimate, Models",
+          "Name": "MicroClimate",
+          "a_interception": 0.0,
+          "b_interception": 1.0,
+          "c_interception": 0.0,
+          "d_interception": 0.0,
+          "SoilHeatFluxFraction": 0.4,
+          "NightInterceptionFraction": 0.5,
+          "ReferenceHeight": 2.0
+        },
+        {
+          "$type": "Models.Core.Zone, Models",
+          "Name": "Field",
+          "Area": 1.0,
+          "Children": [
+            {
+  "$type": "Models.Soils.Soil, Models",
+  "SoilType": "Franco limoso dimostrativo",
+  "DataSource": "Synthetic demo profile generated in R; not observed soil data",
+  "Name": "Soil",
+  "Children": [
+    {
+      "$type": "Models.Soils.Physical, Models",
+      "Name": "Physical",
+      "Thickness": [
+        150.0000,
+        150.0000,
+        300.0000,
+        300.0000,
+        300.0000,
+        300.0000
+      ],
+      "BD": [
+        1.2800,
+        1.3300,
+        1.3900,
+        1.4300,
+        1.4600,
+        1.4900
+      ],
+      "AirDry": [
+        0.0700,
+        0.0750,
+        0.0800,
+        0.0800,
+        0.0800,
+        0.0750
+      ],
+      "LL15": [
+        0.1400,
+        0.1500,
+        0.1600,
+        0.1600,
+        0.1600,
+        0.1500
+      ],
+      "DUL": [
+        0.3100,
+        0.3200,
+        0.3300,
+        0.3200,
+        0.3100,
+        0.3000
+      ],
+      "SAT": [
+        0.4600,
+        0.4500,
+        0.4400,
+        0.4300,
+        0.4200,
+        0.4100
+      ],
+      "KS": null,
+      "Children": [
+        {
+          "$type": "Models.Soils.SoilCrop, Models",
+          "Name": "WheatSoil",
+          "LL": [
+        0.1400,
+        0.1500,
+        0.1600,
+        0.1600,
+        0.1600,
+        0.1500
+      ],
+          "KL": [
+        0.0700,
+        0.0640,
+        0.0580,
+        0.0520,
+        0.0460,
+        0.0400
+      ],
+          "XF": [
+        1.0000,
+        1.0000,
+        1.0000,
+        1.0000,
+        1.0000,
+        1.0000
+      ],
+          "Children": [],
+          "Enabled": true,
+          "ReadOnly": false
+        },
+        {
+          "$type": "Models.Soils.SoilCrop, Models",
+          "Name": "MaizeSoil",
+          "LL": [
+        0.1400,
+        0.1500,
+        0.1600,
+        0.1600,
+        0.1600,
+        0.1500
+      ],
+          "KL": [
+        0.0700,
+        0.0640,
+        0.0580,
+        0.0520,
+        0.0460,
+        0.0400
+      ],
+          "XF": [
+        1.0000,
+        1.0000,
+        1.0000,
+        1.0000,
+        1.0000,
+        1.0000
+      ],
+          "Children": [],
+          "Enabled": true,
+          "ReadOnly": false
+        },
+        {
+          "$type": "Models.Soils.SoilCrop, Models",
+          "Name": "SoybeanSoil",
+          "LL": [
+        0.1400,
+        0.1500,
+        0.1600,
+        0.1600,
+        0.1600,
+        0.1500
+      ],
+          "KL": [
+        0.0700,
+        0.0640,
+        0.0580,
+        0.0520,
+        0.0460,
+        0.0400
+      ],
+          "XF": [
+        1.0000,
+        1.0000,
+        1.0000,
+        1.0000,
+        1.0000,
+        1.0000
+      ],
+          "Children": [],
+          "Enabled": true,
+          "ReadOnly": false
+        }
+      ],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.WaterModel.WaterBalance, Models",
+      "Name": "SoilWater",
+      "ResourceName": "WaterBalance",
+      "SummerDate": "1-Jun",
+      "SummerU": 6.0,
+      "SummerCona": 3.5,
+      "WinterDate": "1-Oct",
+      "WinterU": 2.0,
+      "WinterCona": 2.5,
+      "DiffusConst": 40.0,
+      "DiffusSlope": 16.0,
+      "Salb": 0.13,
+      "CN2Bare": 73.0,
+      "CNRed": 20.0,
+      "CNCov": 0.8,
+      "PSIDul": -100.0,
+      "Thickness": [
+        150.0000,
+        150.0000,
+        300.0000,
+        300.0000,
+        300.0000,
+        300.0000
+      ],
+      "SWCON": [
+        0.3000,
+        0.3000,
+        0.3000,
+        0.3000,
+        0.3000,
+        0.3000
+      ],
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Soils.Nutrients.Nutrient, Models",
+      "Name": "Nutrient",
+      "ResourceName": "Nutrient",
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Soils.Organic, Models",
+      "Name": "Organic",
+      "FOMCNRatio": 50.0,
+      "Thickness": [
+        150.0000,
+        150.0000,
+        300.0000,
+        300.0000,
+        300.0000,
+        300.0000
+      ],
+      "Carbon": [
+        1.4500,
+        1.1500,
+        0.7500,
+        0.4800,
+        0.3200,
+        0.2400
+      ],
+      "SoilCNRatio": [
+        12.5000,
+        12.5000,
+        12.5000,
+        12.5000,
+        12.5000,
+        12.5000
+      ],
+      "FBiom": [
+        0.0500,
+        0.0200,
+        0.0100,
+        0.0100,
+        0.0100,
+        0.0100
+      ],
+      "FInert": [
+        0.4500,
+        0.6000,
+        0.9000,
+        0.9000,
+        0.9000,
+        0.9000
+      ],
+      "FOM": [
+        260.0000,
+        192.6127,
+        78.3105,
+        42.9777,
+        23.5867,
+        12.9446
+      ],
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Soils.Chemical, Models",
+      "Name": "Chemical",
+      "Thickness": [
+        150.0000,
+        150.0000,
+        300.0000,
+        300.0000,
+        300.0000,
+        300.0000
+      ],
+      "PH": [
+        7.2000,
+        7.3000,
+        7.4000,
+        7.5000,
+        7.6000,
+        7.7000
+      ],
+      "PHUnits": 0,
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Soils.Water, Models",
+      "Name": "Water",
+      "Thickness": [
+        150.0000,
+        150.0000,
+        300.0000,
+        300.0000,
+        300.0000,
+        300.0000
+      ],
+      "InitialValues": [
+        0.2800,
+        0.2900,
+        0.3000,
+        0.2900,
+        0.2800,
+        0.2700
+      ],
+      "RelativeTo": null,
+      "FilledFromTop": false,
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Soils.CERESSoilTemperature, Models",
+      "Name": "Temperature",
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Soils.Solute, Models",
+      "Name": "NO3",
+      "Thickness": [
+        150.0000,
+        150.0000,
+        300.0000,
+        300.0000,
+        300.0000,
+        300.0000
+      ],
+      "InitialValues": [
+        18.0000,
+        12.0000,
+        8.0000,
+        5.0000,
+        3.5000,
+        2.5000
+      ],
+      "InitialValuesUnits": 0,
+      "WaterTableConcentration": 0.0,
+      "D0": 0.0,
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Soils.Solute, Models",
+      "Name": "NH4",
+      "Thickness": [
+        150.0000,
+        150.0000,
+        300.0000,
+        300.0000,
+        300.0000,
+        300.0000
+      ],
+      "InitialValues": [
+        2.0000,
+        1.5000,
+        1.0000,
+        0.7000,
+        0.5000,
+        0.4000
+      ],
+      "InitialValuesUnits": 0,
+      "WaterTableConcentration": 0.0,
+      "D0": 0.0,
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Soils.Solute, Models",
+      "Name": "Urea",
+      "Thickness": [
+        150.0000,
+        150.0000,
+        300.0000,
+        300.0000,
+        300.0000,
+        300.0000
+      ],
+      "InitialValues": [
+        0.0000,
+        0.0000,
+        0.0000,
+        0.0000,
+        0.0000,
+        0.0000
+      ],
+      "InitialValuesUnits": 1,
+      "WaterTableConcentration": 0.0,
+      "D0": 0.0,
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    }
+  ],
+  "Enabled": true,
+  "ReadOnly": false
+},
+            {
+  "$type": "Models.Surface.SurfaceOrganicMatter, Models",
+  "Name": "SurfaceOrganicMatter",
+  "ResourceName": "SurfaceOrganicMatter",
+  "InitialResidueName": "wheat_stubble",
+  "InitialResidueType": "wheat",
+  "InitialResidueMass": 500.0,
+  "InitialStandingFraction": 0.0,
+  "InitialCPR": 0.0,
+  "InitialCNR": 80.0,
+  "Children": []
+},
+            {
+  "$type": "Models.Irrigation, Models",
+  "Name": "Irrigation",
+  "Children": []
+},
+            {
+  "$type": "Models.Fertiliser, Models",
+  "Name": "Fertiliser",
+  "ResourceName": "Fertiliser",
+  "Children": []
+},
+            {
+  "$type": "Models.PMF.Plant, Models",
+  "Name": "Wheat",
+  "ResourceName": "Wheat",
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Sow_Wheat",
+  "CodeArray": [
+    "using APSIM.Shared.Utilities;",
+    "using Models.PMF;",
+    "using Models.Core;",
+    "using System;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link] private Clock Clock;",
+    "        [Link] private Summary Summary;",
+    "        [Link(ByName = true)] private Plant Wheat;",
+    "",
+    "        [Description(\"Start of sowing window (d-mmm)\")]",
+    "        public string StartDate { get; set; }",
+    "",
+    "        [Description(\"End of sowing window (d-mmm)\")]",
+    "        public string EndDate { get; set; }",
+    "",
+    "        [Description(\"Cultivar name\")]",
+    "        public string CultivarName { get; set; }",
+    "",
+    "        [Description(\"Sowing depth (mm)\")]",
+    "        public double SowingDepth { get; set; }",
+    "",
+    "        [Description(\"Row spacing (mm)\")]",
+    "        public double RowSpacing { get; set; }",
+    "",
+    "        [Description(\"Sowing population (/m2)\")]",
+    "        public double Population { get; set; }",
+    "",
+    "        [EventSubscribe(\"DoManagement\")]",
+    "        private void OnDoManagement(object sender, EventArgs e)",
+    "        {",
+    "            if (DateUtilities.WithinDates(StartDate, Clock.Today, EndDate) && !Wheat.IsAlive)",
+    "            {",
+    "                Summary.WriteMessage(this, $\"Sowing Wheat on {Clock.Today:dd-MMM-yyyy} cultivar={CultivarName} pop={Population}\", MessageType.Diagnostic);",
+    "                Wheat.Sow(cultivar: CultivarName, population: Population,",
+    "                         depth: SowingDepth, rowSpacing: RowSpacing);",
+    "            }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [
+    {
+      "Key": "StartDate",
+      "Value": "10-oct"
+    },
+    {
+      "Key": "EndDate",
+      "Value": "20-nov"
+    },
+    {
+      "Key": "CultivarName",
+      "Value": "Hartog"
+    },
+    {
+      "Key": "SowingDepth",
+      "Value": "35"
+    },
+    {
+      "Key": "RowSpacing",
+      "Value": "180"
+    },
+    {
+      "Key": "Population",
+      "Value": "180.0"
+    }
+  ],
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Harvest_Wheat",
+  "CodeArray": [
+    "using Models.Soils;",
+    "using System;",
+    "using System.Linq;",
+    "using Models.Core;",
+    "using Models.PMF;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link]",
+    "        private Clock clock;",
+    "",
+    "        [Link]",
+    "        private IPlant crop;",
+    "",
+    "        [EventSubscribe(\"EndOfDay\")]",
+    "        private void OnDoCalculations(object sender, EventArgs e)",
+    "        {",
+    "            if (crop.IsReadyForHarvesting)",
+    "            {",
+    "                crop.Harvest();",
+    "                crop.EndCrop();",
+    "            }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [],
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Fertilise_Wheat_D100_1",
+  "CodeArray": [
+    "using Models.Core;",
+    "using System;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link] private Clock Clock;",
+    "        [Link] private Fertiliser Fertiliser;",
+    "        [Link] private Summary Summary;",
+    "        [Link(ByName = true)] private Models.PMF.Plant Wheat;",
+    "",
+    "        [Description(\"Days after sowing\")]",
+    "        public int DAS { get; set; }",
+    "",
+    "        [Description(\"Amount of N (kg/ha)\")]",
+    "        public double Amount { get; set; }",
+    "",
+    "        [Description(\"Fertiliser type\")]",
+    "        public string FertType { get; set; }",
+    "",
+    "        private DateTime _sowDate = DateTime.MinValue;",
+    "        private bool _applied = false;",
+    "",
+    "        [EventSubscribe(\"Sowing\")]",
+    "        private void OnSowing(object sender, EventArgs e)",
+    "        {",
+    "            if (sender == Wheat)",
+    "            {",
+    "                _sowDate = Clock.Today;",
+    "                _applied = false;",
+    "            }",
+    "        }",
+    "",
+    "        [EventSubscribe(\"DoManagement\")]",
+    "        private void OnDoManagement(object sender, EventArgs e)",
+    "        {",
+    "            if (!_applied && _sowDate != DateTime.MinValue && Wheat.IsAlive)",
+    "            {",
+    "                int das = (Clock.Today - _sowDate).Days;",
+    "                if (das >= DAS && Amount > 0)",
+    "                {",
+    "                    Fertiliser.Apply(amount: Amount, type: FertType);",
+    "                    Summary.WriteMessage(this, $\"N copertura Wheat: {Amount:F1} kg N/ha a {das} DAS\", MessageType.Diagnostic);",
+    "                    _applied = true;",
+    "                }",
+    "            }",
+    "            // Reset quando la coltura è morta/raccolta",
+    "            if (!Wheat.IsAlive) { _sowDate = DateTime.MinValue; _applied = false; }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [
+    {
+      "Key": "DAS",
+      "Value": "100"
+    },
+    {
+      "Key": "Amount",
+      "Value": "65.0"
+    },
+    {
+      "Key": "FertType",
+      "Value": "UreaN"
+    }
+  ],
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Fertilise_Wheat_D145_2",
+  "CodeArray": [
+    "using Models.Core;",
+    "using System;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link] private Clock Clock;",
+    "        [Link] private Fertiliser Fertiliser;",
+    "        [Link] private Summary Summary;",
+    "        [Link(ByName = true)] private Models.PMF.Plant Wheat;",
+    "",
+    "        [Description(\"Days after sowing\")]",
+    "        public int DAS { get; set; }",
+    "",
+    "        [Description(\"Amount of N (kg/ha)\")]",
+    "        public double Amount { get; set; }",
+    "",
+    "        [Description(\"Fertiliser type\")]",
+    "        public string FertType { get; set; }",
+    "",
+    "        private DateTime _sowDate = DateTime.MinValue;",
+    "        private bool _applied = false;",
+    "",
+    "        [EventSubscribe(\"Sowing\")]",
+    "        private void OnSowing(object sender, EventArgs e)",
+    "        {",
+    "            if (sender == Wheat)",
+    "            {",
+    "                _sowDate = Clock.Today;",
+    "                _applied = false;",
+    "            }",
+    "        }",
+    "",
+    "        [EventSubscribe(\"DoManagement\")]",
+    "        private void OnDoManagement(object sender, EventArgs e)",
+    "        {",
+    "            if (!_applied && _sowDate != DateTime.MinValue && Wheat.IsAlive)",
+    "            {",
+    "                int das = (Clock.Today - _sowDate).Days;",
+    "                if (das >= DAS && Amount > 0)",
+    "                {",
+    "                    Fertiliser.Apply(amount: Amount, type: FertType);",
+    "                    Summary.WriteMessage(this, $\"N copertura Wheat: {Amount:F1} kg N/ha a {das} DAS\", MessageType.Diagnostic);",
+    "                    _applied = true;",
+    "                }",
+    "            }",
+    "            // Reset quando la coltura è morta/raccolta",
+    "            if (!Wheat.IsAlive) { _sowDate = DateTime.MinValue; _applied = false; }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [
+    {
+      "Key": "DAS",
+      "Value": "145"
+    },
+    {
+      "Key": "Amount",
+      "Value": "40.0"
+    },
+    {
+      "Key": "FertType",
+      "Value": "UreaN"
+    }
+  ],
+  "Children": []
+},
+            {
+  "$type": "Models.PMF.Plant, Models",
+  "Name": "Maize",
+  "ResourceName": "Maize",
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Sow_Maize",
+  "CodeArray": [
+    "using APSIM.Shared.Utilities;",
+    "using Models.PMF;",
+    "using Models.Core;",
+    "using System;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link] private Clock Clock;",
+    "        [Link] private Summary Summary;",
+    "        [Link(ByName = true)] private Plant Maize;",
+    "",
+    "        [Description(\"Start of sowing window (d-mmm)\")]",
+    "        public string StartDate { get; set; }",
+    "",
+    "        [Description(\"End of sowing window (d-mmm)\")]",
+    "        public string EndDate { get; set; }",
+    "",
+    "        [Description(\"Cultivar name\")]",
+    "        public string CultivarName { get; set; }",
+    "",
+    "        [Description(\"Sowing depth (mm)\")]",
+    "        public double SowingDepth { get; set; }",
+    "",
+    "        [Description(\"Row spacing (mm)\")]",
+    "        public double RowSpacing { get; set; }",
+    "",
+    "        [Description(\"Sowing population (/m2)\")]",
+    "        public double Population { get; set; }",
+    "",
+    "        [EventSubscribe(\"DoManagement\")]",
+    "        private void OnDoManagement(object sender, EventArgs e)",
+    "        {",
+    "            if (DateUtilities.WithinDates(StartDate, Clock.Today, EndDate) && !Maize.IsAlive)",
+    "            {",
+    "                Summary.WriteMessage(this, $\"Sowing Maize on {Clock.Today:dd-MMM-yyyy} cultivar={CultivarName} pop={Population}\", MessageType.Diagnostic);",
+    "                Maize.Sow(cultivar: CultivarName, population: Population,",
+    "                         depth: SowingDepth, rowSpacing: RowSpacing);",
+    "            }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [
+    {
+      "Key": "StartDate",
+      "Value": "1-apr"
+    },
+    {
+      "Key": "EndDate",
+      "Value": "10-may"
+    },
+    {
+      "Key": "CultivarName",
+      "Value": "B_110"
+    },
+    {
+      "Key": "SowingDepth",
+      "Value": "50"
+    },
+    {
+      "Key": "RowSpacing",
+      "Value": "750"
+    },
+    {
+      "Key": "Population",
+      "Value": "7.5"
+    }
+  ],
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Harvest_Maize",
+  "CodeArray": [
+    "using Models.Soils;",
+    "using System;",
+    "using System.Linq;",
+    "using Models.Core;",
+    "using Models.PMF;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link]",
+    "        private Clock clock;",
+    "",
+    "        [Link]",
+    "        private IPlant crop;",
+    "",
+    "        [EventSubscribe(\"EndOfDay\")]",
+    "        private void OnDoCalculations(object sender, EventArgs e)",
+    "        {",
+    "            if (crop.IsReadyForHarvesting)",
+    "            {",
+    "                crop.Harvest();",
+    "                crop.EndCrop();",
+    "            }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [],
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Fertilise_Maize_D35_1",
+  "CodeArray": [
+    "using Models.Core;",
+    "using System;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link] private Clock Clock;",
+    "        [Link] private Fertiliser Fertiliser;",
+    "        [Link] private Summary Summary;",
+    "        [Link(ByName = true)] private Models.PMF.Plant Maize;",
+    "",
+    "        [Description(\"Days after sowing\")]",
+    "        public int DAS { get; set; }",
+    "",
+    "        [Description(\"Amount of N (kg/ha)\")]",
+    "        public double Amount { get; set; }",
+    "",
+    "        [Description(\"Fertiliser type\")]",
+    "        public string FertType { get; set; }",
+    "",
+    "        private DateTime _sowDate = DateTime.MinValue;",
+    "        private bool _applied = false;",
+    "",
+    "        [EventSubscribe(\"Sowing\")]",
+    "        private void OnSowing(object sender, EventArgs e)",
+    "        {",
+    "            if (sender == Maize)",
+    "            {",
+    "                _sowDate = Clock.Today;",
+    "                _applied = false;",
+    "            }",
+    "        }",
+    "",
+    "        [EventSubscribe(\"DoManagement\")]",
+    "        private void OnDoManagement(object sender, EventArgs e)",
+    "        {",
+    "            if (!_applied && _sowDate != DateTime.MinValue && Maize.IsAlive)",
+    "            {",
+    "                int das = (Clock.Today - _sowDate).Days;",
+    "                if (das >= DAS && Amount > 0)",
+    "                {",
+    "                    Fertiliser.Apply(amount: Amount, type: FertType);",
+    "                    Summary.WriteMessage(this, $\"N copertura Maize: {Amount:F1} kg N/ha a {das} DAS\", MessageType.Diagnostic);",
+    "                    _applied = true;",
+    "                }",
+    "            }",
+    "            // Reset quando la coltura è morta/raccolta",
+    "            if (!Maize.IsAlive) { _sowDate = DateTime.MinValue; _applied = false; }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [
+    {
+      "Key": "DAS",
+      "Value": "35"
+    },
+    {
+      "Key": "Amount",
+      "Value": "100.0"
+    },
+    {
+      "Key": "FertType",
+      "Value": "UreaN"
+    }
+  ],
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Irrigate_Maize",
+  "CodeArray": [
+    "using Models.Core;",
+    "using Models.Soils;",
+    "using Models.Interfaces;",
+    "using System;",
+    "using System.Linq;",
+    "using APSIM.Shared.Utilities;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link] private Clock Clock;",
+    "        [Link] private Irrigation Irrigation;",
+    "        [Link] private Summary Summary;",
+    "        [Link] private Zone Zone;",
+    "        [Link(ByName = true)] private Models.PMF.Plant Maize;",
+    "",
+    "        [Description(\"Soglia PAW/PAWC sotto cui irrigare (0-1)\")]",
+    "        public double Threshold { get; set; }",
+    "",
+    "        [Description(\"Obiettivo di ricarica PAW/PAWC (0-1)\")]",
+    "        public double Target { get; set; }",
+    "",
+    "        [Description(\"Dose massima per turno (mm)\")]",
+    "        public double MaxMm { get; set; }",
+    "",
+    "        [Description(\"Inizio finestra irrigua (d-mmm)\")]",
+    "        public string WindowStart { get; set; }",
+    "",
+    "        [Description(\"Fine finestra irrigua (d-mmm)\")]",
+    "        public string WindowEnd { get; set; }",
+    "",
+    "        [EventSubscribe(\"DoManagement\")]",
+    "        private void OnDoManagement(object sender, EventArgs e)",
+    "        {",
+    "            if (!Maize.IsAlive) return;",
+    "            if (!DateUtilities.WithinDates(WindowStart, Clock.Today, WindowEnd)) return;",
+    "",
+    "            // Calcola PAW e PAWC dal profilo suolo corrente",
+    "            var physical = Zone.FindDescendant<IPhysical>();",
+    "            var soilWater = Zone.FindDescendant<ISoilWater>();",
+    "            if (physical == null || soilWater == null) return;",
+    "",
+    "            double[] sw        = soilWater.SW;         // vol. water content",
+    "            double[] thickness = soilWater.Thickness;   // ISoilWater espone Thickness",
+    "            double[] dul       = physical.DUL;          // IPhysical espone DUL e LL15",
+    "            double[] ll15      = physical.LL15;",
+    "",
+    "            double pawc = 0, paw = 0;",
+    "            int nLayers = Math.Min(sw.Length, Math.Min(dul.Length, Math.Min(ll15.Length, thickness.Length)));",
+    "            for (int i = 0; i < nLayers; i++)",
+    "            {",
+    "                double lPawc = thickness[i] * Math.Max(0, dul[i] - ll15[i]);",
+    "                double lPaw  = thickness[i] * Math.Max(0, Math.Min(sw[i], dul[i]) - ll15[i]);",
+    "                pawc += lPawc;",
+    "                paw  += lPaw;",
+    "            }",
+    "",
+    "            if (pawc <= 0) return;",
+    "            double fraction = paw / pawc;",
+    "",
+    "            if (fraction < Threshold)",
+    "            {",
+    "                double deficit = (Target - fraction) * pawc;",
+    "                double amount  = Math.Min(Math.Max(0, deficit), MaxMm);",
+    "                if (amount >= 1.0)",
+    "                {",
+    "                    Irrigation.Apply(amount);",
+    "                    Summary.WriteMessage(this, $\"Irrigazione Maize: {amount:F1} mm (PAW {fraction:P0} → target {Target:P0})\", MessageType.Diagnostic);",
+    "                }",
+    "            }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [
+    {
+      "Key": "Threshold",
+      "Value": "0.50"
+    },
+    {
+      "Key": "Target",
+      "Value": "0.85"
+    },
+    {
+      "Key": "MaxMm",
+      "Value": "35.0"
+    },
+    {
+      "Key": "WindowStart",
+      "Value": "1-jun"
+    },
+    {
+      "Key": "WindowEnd",
+      "Value": "31-aug"
+    }
+  ],
+  "Children": []
+},
+            {
+  "$type": "Models.PMF.Plant, Models",
+  "Name": "Soybean",
+  "ResourceName": "Soybean",
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Sow_Soybean",
+  "CodeArray": [
+    "using APSIM.Shared.Utilities;",
+    "using Models.PMF;",
+    "using Models.Core;",
+    "using System;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link] private Clock Clock;",
+    "        [Link] private Summary Summary;",
+    "        [Link(ByName = true)] private Plant Soybean;",
+    "",
+    "        [Description(\"Start of sowing window (d-mmm)\")]",
+    "        public string StartDate { get; set; }",
+    "",
+    "        [Description(\"End of sowing window (d-mmm)\")]",
+    "        public string EndDate { get; set; }",
+    "",
+    "        [Description(\"Cultivar name\")]",
+    "        public string CultivarName { get; set; }",
+    "",
+    "        [Description(\"Sowing depth (mm)\")]",
+    "        public double SowingDepth { get; set; }",
+    "",
+    "        [Description(\"Row spacing (mm)\")]",
+    "        public double RowSpacing { get; set; }",
+    "",
+    "        [Description(\"Sowing population (/m2)\")]",
+    "        public double Population { get; set; }",
+    "",
+    "        [EventSubscribe(\"DoManagement\")]",
+    "        private void OnDoManagement(object sender, EventArgs e)",
+    "        {",
+    "            if (DateUtilities.WithinDates(StartDate, Clock.Today, EndDate) && !Soybean.IsAlive)",
+    "            {",
+    "                Summary.WriteMessage(this, $\"Sowing Soybean on {Clock.Today:dd-MMM-yyyy} cultivar={CultivarName} pop={Population}\", MessageType.Diagnostic);",
+    "                Soybean.Sow(cultivar: CultivarName, population: Population,",
+    "                         depth: SowingDepth, rowSpacing: RowSpacing);",
+    "            }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [
+    {
+      "Key": "StartDate",
+      "Value": "1-may"
+    },
+    {
+      "Key": "EndDate",
+      "Value": "15-jun"
+    },
+    {
+      "Key": "CultivarName",
+      "Value": "Generic_MG1"
+    },
+    {
+      "Key": "SowingDepth",
+      "Value": "35"
+    },
+    {
+      "Key": "RowSpacing",
+      "Value": "450"
+    },
+    {
+      "Key": "Population",
+      "Value": "35.0"
+    }
+  ],
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Harvest_Soybean",
+  "CodeArray": [
+    "using Models.Soils;",
+    "using System;",
+    "using System.Linq;",
+    "using Models.Core;",
+    "using Models.PMF;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link]",
+    "        private Clock clock;",
+    "",
+    "        [Link]",
+    "        private IPlant crop;",
+    "",
+    "        [EventSubscribe(\"EndOfDay\")]",
+    "        private void OnDoCalculations(object sender, EventArgs e)",
+    "        {",
+    "            if (crop.IsReadyForHarvesting)",
+    "            {",
+    "                crop.Harvest();",
+    "                crop.EndCrop();",
+    "            }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [],
+  "Children": []
+},
+            {
+  "$type": "Models.Manager, Models",
+  "Name": "Irrigate_Soybean",
+  "CodeArray": [
+    "using Models.Core;",
+    "using Models.Soils;",
+    "using Models.Interfaces;",
+    "using System;",
+    "using System.Linq;",
+    "using APSIM.Shared.Utilities;",
+    "",
+    "namespace Models",
+    "{",
+    "    [Serializable]",
+    "    public class Script : Model",
+    "    {",
+    "        [Link] private Clock Clock;",
+    "        [Link] private Irrigation Irrigation;",
+    "        [Link] private Summary Summary;",
+    "        [Link] private Zone Zone;",
+    "        [Link(ByName = true)] private Models.PMF.Plant Soybean;",
+    "",
+    "        [Description(\"Soglia PAW/PAWC sotto cui irrigare (0-1)\")]",
+    "        public double Threshold { get; set; }",
+    "",
+    "        [Description(\"Obiettivo di ricarica PAW/PAWC (0-1)\")]",
+    "        public double Target { get; set; }",
+    "",
+    "        [Description(\"Dose massima per turno (mm)\")]",
+    "        public double MaxMm { get; set; }",
+    "",
+    "        [Description(\"Inizio finestra irrigua (d-mmm)\")]",
+    "        public string WindowStart { get; set; }",
+    "",
+    "        [Description(\"Fine finestra irrigua (d-mmm)\")]",
+    "        public string WindowEnd { get; set; }",
+    "",
+    "        [EventSubscribe(\"DoManagement\")]",
+    "        private void OnDoManagement(object sender, EventArgs e)",
+    "        {",
+    "            if (!Soybean.IsAlive) return;",
+    "            if (!DateUtilities.WithinDates(WindowStart, Clock.Today, WindowEnd)) return;",
+    "",
+    "            // Calcola PAW e PAWC dal profilo suolo corrente",
+    "            var physical = Zone.FindDescendant<IPhysical>();",
+    "            var soilWater = Zone.FindDescendant<ISoilWater>();",
+    "            if (physical == null || soilWater == null) return;",
+    "",
+    "            double[] sw        = soilWater.SW;         // vol. water content",
+    "            double[] thickness = soilWater.Thickness;   // ISoilWater espone Thickness",
+    "            double[] dul       = physical.DUL;          // IPhysical espone DUL e LL15",
+    "            double[] ll15      = physical.LL15;",
+    "",
+    "            double pawc = 0, paw = 0;",
+    "            int nLayers = Math.Min(sw.Length, Math.Min(dul.Length, Math.Min(ll15.Length, thickness.Length)));",
+    "            for (int i = 0; i < nLayers; i++)",
+    "            {",
+    "                double lPawc = thickness[i] * Math.Max(0, dul[i] - ll15[i]);",
+    "                double lPaw  = thickness[i] * Math.Max(0, Math.Min(sw[i], dul[i]) - ll15[i]);",
+    "                pawc += lPawc;",
+    "                paw  += lPaw;",
+    "            }",
+    "",
+    "            if (pawc <= 0) return;",
+    "            double fraction = paw / pawc;",
+    "",
+    "            if (fraction < Threshold)",
+    "            {",
+    "                double deficit = (Target - fraction) * pawc;",
+    "                double amount  = Math.Min(Math.Max(0, deficit), MaxMm);",
+    "                if (amount >= 1.0)",
+    "                {",
+    "                    Irrigation.Apply(amount);",
+    "                    Summary.WriteMessage(this, $\"Irrigazione Soybean: {amount:F1} mm (PAW {fraction:P0} → target {Target:P0})\", MessageType.Diagnostic);",
+    "                }",
+    "            }",
+    "        }",
+    "    }",
+    "}"
+  ],
+  "Parameters": [
+    {
+      "Key": "Threshold",
+      "Value": "0.45"
+    },
+    {
+      "Key": "Target",
+      "Value": "0.80"
+    },
+    {
+      "Key": "MaxMm",
+      "Value": "30.0"
+    },
+    {
+      "Key": "WindowStart",
+      "Value": "15-jun"
+    },
+    {
+      "Key": "WindowEnd",
+      "Value": "31-aug"
+    }
+  ],
+  "Children": []
+},
+            {
+  "$type": "Models.Report, Models",
+  "Name": "Report",
+  "VariableNames": [
+          "[Clock].Today",
+          "[Clock].Today.Year as Year",
+          "[Wheat].Grain.Wt * 10 as Wheat_GrainYield_kgha",
+          "[Wheat].AboveGround.Wt * 10 as Wheat_Biomass_kgha",
+          "[Wheat].Leaf.LAI as Wheat_LAI",
+          "[Maize].Grain.Wt * 10 as Maize_GrainYield_kgha",
+          "[Maize].AboveGround.Wt * 10 as Maize_Biomass_kgha",
+          "[Maize].Leaf.LAI as Maize_LAI",
+          "[Soybean].Grain.Wt * 10 as Soybean_GrainYield_kgha",
+          "[Soybean].AboveGround.Wt * 10 as Soybean_Biomass_kgha",
+          "[Soybean].Leaf.LAI as Soybean_LAI",
+          "sum([NO3].kgha) as SoilNO3_kgha"
+        ],
+  "EventNames": [
+          "[Wheat].Harvesting",
+          "[Maize].Harvesting",
+          "[Soybean].Harvesting"
+        ],
+  "Children": []
+},
+{
+  "$type": "Models.Report, Models",
+  "Name": "DailyReport",
+  "VariableNames": [
+          "[Clock].Today",
+          "[Clock].Today.Year as Year",
+          "[Clock].Today.DayOfYear as DOY",
+          "[Weather].MaxT as Tx",
+          "[Weather].MinT as Tn",
+          "[Weather].Rain as Rain_mm",
+          "[Weather].Radn as Radn_MJm2",
+          "[Weather].Wind as Wind_ms",
+          "[Weather].VP as VP_hPa",
+          "[MicroClimate].PetTotal as ET0_mm",
+          "[SoilWater].Eo as PotEvapSoil_mm",
+          "[SoilWater].Es as ActEvapSoil_mm",
+          "[SoilWater].Runoff as Runoff_mm",
+          "[SoilWater].Drainage as Perc_mm",
+          "[SoilWater].LeachNO3 as LeachNO3_kgNha",
+          "[Irrigation].IrrigationApplied as Irrig_mm",
+          "[SoilWater].SWmm as SWmm",
+          "sum([SoilWater].SWmm) as SoilSWtot_mm",
+          "[NO3].kgha as NO3_kgha",
+          "[NH4].kgha as NH4_kgha",
+          "sum([Nutrient].MineralisedN) as MinerN_kgNha",
+          "sum([Nutrient].NitrifiedN)   as NitrN_kgNha",
+          "[Nutrient].TotalC as SoilC_kgCha",
+          "[Nutrient].Catm as CO2C_kgCha",
+          "[Nutrient].N2Oatm as N2O_kgNha",
+          "sum([Nutrient].Catm)   as CO2C_total_kgCha",
+          "sum([Nutrient].N2Oatm) as N2O_total_kgNha",
+          "sum([Nutrient].TotalC) as SoilCtot_kgCha",
+          "[Wheat].IsAlive as Wheat_IsAlive",
+          "[Wheat].Phenology.Stage as Wheat_Stage",
+          "[Wheat].Phenology.CurrentStageName as Wheat_StageName",
+          "[Wheat].Leaf.LAI as Wheat_LAI",
+          "[Wheat].AboveGround.Wt * 10 as Wheat_Biomass_kgha",
+          "[Wheat].Root.Wt * 10 as Wheat_RootWt_kgha",
+          "[Wheat].Grain.Wt * 10 as Wheat_GrainWt_kgha",
+          "[Wheat].AboveGround.N * 10 as Wheat_BiomassN_kgNha",
+          "[Maize].IsAlive as Maize_IsAlive",
+          "[Maize].Phenology.Stage as Maize_Stage",
+          "[Maize].Phenology.CurrentStageName as Maize_StageName",
+          "[Maize].Leaf.LAI as Maize_LAI",
+          "[Maize].AboveGround.Wt * 10 as Maize_Biomass_kgha",
+          "[Maize].Root.Wt * 10 as Maize_RootWt_kgha",
+          "[Maize].Grain.Wt * 10 as Maize_GrainWt_kgha",
+          "[Maize].AboveGround.N * 10 as Maize_BiomassN_kgNha",
+          "[Soybean].IsAlive as Soybean_IsAlive",
+          "[Soybean].Phenology.Stage as Soybean_Stage",
+          "[Soybean].Phenology.CurrentStageName as Soybean_StageName",
+          "[Soybean].Leaf.LAI as Soybean_LAI",
+          "[Soybean].AboveGround.Wt * 10 as Soybean_Biomass_kgha",
+          "[Soybean].Root.Wt * 10 as Soybean_RootWt_kgha",
+          "[Soybean].Grain.Wt * 10 as Soybean_GrainWt_kgha",
+          "[Soybean].AboveGround.N * 10 as Soybean_BiomassN_kgNha"
+        ],
+  "EventNames": [
+          "[Clock].EndOfDay"
+        ],
+  "Children": []
+}
+          ]
+        }
+      ]
+    }
+  ]
+}

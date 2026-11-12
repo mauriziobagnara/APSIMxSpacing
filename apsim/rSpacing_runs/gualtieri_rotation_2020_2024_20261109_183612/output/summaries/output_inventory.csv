@@ -1,0 +1,11 @@
+"object","path","exists"
+"request","C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/request.json",TRUE
+"config","C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/spacing.config.json",TRUE
+"result","C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output/result.json",TRUE
+"manifest","C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output/manifest.json",TRUE
+"stdout","C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output/spacing_tool2_stdout.log",TRUE
+"stderr","C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output/spacing_tool2_stderr.log",TRUE
+"control_csv","C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output\report_GUALTIERI_RE_DEMO_GUALTIERI_LOAM_DEMO_001_gualtieri_5y_three_species.csv",TRUE
+"daily_csv","C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output\daily_GUALTIERI_RE_DEMO_GUALTIERI_LOAM_DEMO_001_gualtieri_5y_three_species.csv",TRUE
+"crop_summary_csv","C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output\crop_summary_GUALTIERI_RE_DEMO_GUALTIERI_LOAM_DEMO_001_gualtieri_5y_three_species.csv",TRUE
+"datastore","C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output\spacing_GUALTIERI_RE_DEMO__GUALTIERI_LOAM_DEMO_001__gualtieri_5y_three_species.db",TRUE

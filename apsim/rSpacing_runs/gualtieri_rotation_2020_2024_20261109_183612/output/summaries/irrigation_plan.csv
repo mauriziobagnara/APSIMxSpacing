@@ -1,0 +1,4 @@
+"Species","Cultivar","Window_start","Window_end","Threshold_fraction","Target_fraction","Maximum_application_mm"
+"Wheat","Hartog","1-mar","31-may",0.35,0.7,25
+"Maize","B_110","1-jun","31-aug",0.5,0.85,35
+"Soybean","Generic_MG1","15-jun","31-aug",0.45,0.8,30

@@ -1,0 +1,39 @@
+Project	Package	Version
+apsim source/APSIM.Core/APSIM.Core.csproj	Newtonsoft.Json	13.0.4
+apsim source/APSIM.Core/APSIM.Core.csproj	APSIM.Soils	8.2.0
+apsim source/APSIM.Core/APSIM.Core.csproj	Microsoft.CodeAnalysis.CSharp	5.9.0
+apsim source/APSIM.Core/APSIM.Core.csproj	MessagePack	3.1.12
+apsim source/APSIM.Core/APSIM.Core.csproj	MathNet.Numerics	5.0.0
+apsim source/APSIM.Core/APSIM.Core.csproj	NetMQ	4.0.4.5
+apsim source/APSIM.Shared/APSIM.Shared.csproj	DocumentFormat.OpenXml	3.5.1
+apsim source/APSIM.Shared/APSIM.Shared.csproj	ExcelDataReader.DataSet	3.9.0
+apsim source/APSIM.Shared/APSIM.Shared.csproj	Mapsui	5.1.0
+apsim source/APSIM.Shared/APSIM.Shared.csproj	Mapsui.Nts	5.1.0
+apsim source/APSIM.Shared/APSIM.Shared.csproj	Mapsui.Rendering.Skia	5.1.0
+apsim source/APSIM.Shared/APSIM.Shared.csproj	Mapsui.Tiling	5.1.0
+apsim source/APSIM.Shared/APSIM.Shared.csproj	Microsoft.Data.Sqlite	10.0.14
+apsim source/APSIM.Shared/APSIM.Shared.csproj	Newtonsoft.Json	13.0.4
+apsim source/APSIM.Shared/APSIM.Shared.csproj	SkiaSharp	4.155.0
+apsim source/APSIM.Shared/APSIM.Shared.csproj	SkiaSharp.NativeAssets.Linux	4.155.0
+apsim source/APSIM.Shared/APSIM.Shared.csproj	System.Drawing.Common	10.0.14
+apsim source/APSIM.Shared/APSIM.Shared.csproj	Docker.DotNet	3.125.15
+apsim source/APSIM.Shared/APSIM.Shared.csproj	APSIM.Numerics	8.4.0
+apsim source/DeepCloner.Core/DeepCloner.Core.csproj	JetBrains.Annotations	2026.2.0
+apsim source/Models/Models.csproj	NetMQ	4.0.4.5
+apsim source/Models/Models.csproj	MessagePack	3.1.12
+apsim source/Models/Models.csproj	System.Windows.Extensions	10.0.14
+apsim source/Models/Models.csproj	ExcelDataReader.DataSet	3.9.0
+apsim source/Models/Models.csproj	MathNet.Numerics	5.0.0
+apsim source/Models/Models.csproj	Microsoft.Win32.Registry	5.0.0
+apsim source/Models/Models.csproj	Newtonsoft.Json	13.0.4
+apsim source/Models/Models.csproj	System.CodeDom	10.0.14
+apsim source/Models/Models.csproj	Microsoft.Data.SqlClient	7.1.1
+apsim source/Models/Models.csproj	System.Resources.Extensions	10.0.14
+apsim source/Models/Models.csproj	System.Text.Encoding.CodePages	10.0.14
+apsim source/Models/Models.csproj	CommandLineParser	2.9.1
+apsim source/Models/Models.csproj	Microsoft.CodeAnalysis.CSharp	5.9.0
+apsim source/Models/Models.csproj	Microsoft.CodeAnalysis.VisualBasic	5.9.0
+apsim source/Models/Models.csproj	APSIM.Soils	8.2.0
+src/Spacing.Core/Spacing.Core.csproj	Newtonsoft.Json	13.0.4
+src/Spacing.Core/Spacing.Core.csproj	Microsoft.Extensions.Http	10.0.14
+src/runner/runner.csproj	MathNet.Numerics	6.0.0-beta1

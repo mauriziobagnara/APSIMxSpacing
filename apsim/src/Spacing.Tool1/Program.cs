@@ -21,6 +21,8 @@ using Spacing.Core.Simulation;
 var configPath = GetArg(args, "--config", "spacing.config.json");
 var nuts2Filter = GetArg(args, "--nuts2", null);
 var useMock     = args.Contains("--mock");
+var scenariosPath = GetArg(args, "--scenarios", null);
+var resultJsonPath = GetArg(args, "--result", null);
 
 Console.WriteLine("=== SPACING Tool 1 — Batch scientifico ===");
 Console.WriteLine($"Config: {configPath} | NUTS2: {nuts2Filter ?? "tutta Italia"} | Mock: {useMock}");
@@ -41,7 +43,7 @@ var runner         = new SimulationRunner(config.OutputDir);
 // ---- Definizione scenari ----
 // TODO: in futuro questi scenari verranno letti da file di configurazione regionale.
 // Per ora: esempio con sorgum in monosuccessione e rotazione frumento-sorgum.
-var scenarios = DefineScenarios();
+var scenarios = scenariosPath == null ? DefineScenarios() : LoadScenarios(scenariosPath);
 Console.WriteLine($"\nScenari definiti: {scenarios.Count}");
 foreach (var s in scenarios) Console.WriteLine($"  • {s}");
 
@@ -73,7 +75,8 @@ foreach (var cell in cells)
                 SoilProfile = soil,
                 Rotation    = scenario,
                 StartYear   = config.StartYear,
-                EndYear     = config.EndYear
+                EndYear     = config.EndYear,
+                RunId       = $"{cell.Id}__{soil.ProfileId}__{scenario.Id}"
             };
 
             await sem.WaitAsync();
@@ -109,10 +112,45 @@ await Task.WhenAll(tasks);
 // ---- Output CSV ----
 var csvPath = Path.Combine(config.OutputDir, "tool1_results.csv");
 WriteResultsCsv(csvPath, results);
+var batchOutput = new
+{
+    success = results.All(r => r.ok),
+    engine = "Spacing.Tool1",
+    scenarios_file = scenariosPath == null ? null : Path.GetFullPath(scenariosPath),
+    result_count = results.Count,
+    success_count = results.Count(r => r.ok),
+    failure_count = results.Count(r => !r.ok),
+    summary_csv = Path.GetFullPath(csvPath),
+    runs = results.Select(r => new { simulation_unit_id = r.unitId, success = r.ok, summary = r.summary })
+};
+var batchJson = Newtonsoft.Json.JsonConvert.SerializeObject(batchOutput, Newtonsoft.Json.Formatting.Indented);
+if (!string.IsNullOrWhiteSpace(resultJsonPath))
+{
+    var full = Path.GetFullPath(resultJsonPath);
+    Directory.CreateDirectory(Path.GetDirectoryName(full)!);
+    File.WriteAllText(full, batchJson);
+}
 Console.WriteLine($"\n✓ Completato. Risultati: {csvPath}");
 Console.WriteLine($"  Successi: {results.Count(r => r.ok)} / {results.Count}");
 
 // ---- Helpers ----
+
+static List<CropRotation> LoadScenarios(string path)
+{
+    if (!File.Exists(path))
+        throw new FileNotFoundException($"File scenari non trovato: {path}");
+    var token = Newtonsoft.Json.Linq.JToken.Parse(File.ReadAllText(path));
+    var array = token.Type == Newtonsoft.Json.Linq.JTokenType.Array
+        ? token
+        : token["scenarios"] ?? throw new InvalidDataException("Il JSON deve essere un array o contenere la proprietà scenarios.");
+    var scenarios = array.ToObject<List<CropRotation>>() ?? new List<CropRotation>();
+    if (scenarios.Count == 0)
+        throw new InvalidDataException("Nessuno scenario definito.");
+    foreach (var scenario in scenarios)
+        if (string.IsNullOrWhiteSpace(scenario.Id) || scenario.Crops == null || scenario.Crops.Count == 0)
+            throw new InvalidDataException("Ogni scenario richiede Id e almeno una coltura.");
+    return scenarios;
+}
 
 static List<CropRotation> DefineScenarios()
 {

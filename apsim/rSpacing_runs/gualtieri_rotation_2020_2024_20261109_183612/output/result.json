@@ -1,0 +1,159 @@
+{
+  "success": true,
+  "error": null,
+  "calibrated": false,
+  "bestParams": null,
+  "yields": {
+    "Wheat": 2570.776486213248,
+    "Maize": 11654.865394613464,
+    "Soybean": 2264.375443225358
+  },
+  "biomass": {
+    "Wheat": 10660.71247180565,
+    "Maize": 19223.363572417373,
+    "Soybean": 5553.324084235728
+  },
+  "run_id": "gualtieri_rotation_2020_2024_20261109_183612",
+  "simulation_unit_id": "GUALTIERI_RE_DEMO__GUALTIERI_LOAM_DEMO_001__gualtieri_5y_three_species",
+  "engine": "Spacing.Tool2",
+  "metadata": {
+    "source": "RStudio",
+    "caller": "rSpacing demo integration",
+    "purpose": "End-to-end test with crop-specific fertilisation and irrigation; no parameter variation",
+    "location": "Gualtieri, Emilia-Romagna, Italy",
+    "rotation_label": "Wheat(Hartog)-Maize(B_110)-Soybean(Generic_MG1)",
+    "soil_warning": "Synthetic demonstrative soil; replace before scientific use"
+  },
+  "inputs": {
+    "cell_id": "GUALTIERI_RE_DEMO",
+    "latitude": 44.9,
+    "longitude": 10.63,
+    "soil_profile_id": "GUALTIERI_LOAM_DEMO_001",
+    "soil_source": "Synthetic demo profile generated in R; not observed soil data",
+    "weather_file": "C:\\Users\\maurizio.bagnara\\Documents\\spacing-main\\apsim\\rSpacing_runs\\gualtieri_rotation_2020_2024_20261109_183612\\weather\\GUALTIERI_RE_DEMO_2020_2024.met",
+    "start_year": 2020,
+    "end_year": 2024,
+    "rotation": {
+      "Id": "gualtieri_5y_three_species",
+      "Name": "Scenario quinquennale frumento-mais-soia",
+      "Description": null,
+      "Crops": [
+        {
+          "ParameterOverrides": {},
+          "CropName": "Wheat",
+          "Years": 1,
+          "Management": {
+            "TillageType": "conventional",
+            "NitrogenMineralKgHa": 0.0,
+            "NitrogenOrganicKgHa": 0.0,
+            "SowingDate": null,
+            "Cultivar": "Hartog",
+            "SowingDensity": 180.0,
+            "SowingDepth": 35.0,
+            "RowSpacing": 180.0,
+            "AutoIrrigate": true,
+            "IrrigationThreshold": 0.35,
+            "IrrigationTarget": 0.7,
+            "MaxIrrigationMm": 25.0,
+            "IrrigationWindowStart": "1-mar",
+            "IrrigationWindowEnd": "31-may",
+            "SowingWindowStart": "10-oct",
+            "SowingWindowEnd": "20-nov",
+            "SplitFertiliser": [
+              {
+                "Trigger": "DaysAfterSowing",
+                "DaysAfterSowing": 100,
+                "AmountKgNHa": 70.0,
+                "FertType": "UreaN"
+              },
+              {
+                "Trigger": "DaysAfterSowing",
+                "DaysAfterSowing": 145,
+                "AmountKgNHa": 50.0,
+                "FertType": "UreaN"
+              }
+            ]
+          }
+        },
+        {
+          "ParameterOverrides": {},
+          "CropName": "Maize",
+          "Years": 1,
+          "Management": {
+            "TillageType": "conventional",
+            "NitrogenMineralKgHa": 0.0,
+            "NitrogenOrganicKgHa": 0.0,
+            "SowingDate": null,
+            "Cultivar": "B_110",
+            "SowingDensity": 7.5,
+            "SowingDepth": 50.0,
+            "RowSpacing": 750.0,
+            "AutoIrrigate": true,
+            "IrrigationThreshold": 0.5,
+            "IrrigationTarget": 0.85,
+            "MaxIrrigationMm": 35.0,
+            "IrrigationWindowStart": "1-jun",
+            "IrrigationWindowEnd": "31-aug",
+            "SowingWindowStart": "1-apr",
+            "SowingWindowEnd": "10-may",
+            "SplitFertiliser": [
+              {
+                "Trigger": "DaysAfterSowing",
+                "DaysAfterSowing": 35,
+                "AmountKgNHa": 100.0,
+                "FertType": "UreaN"
+              },
+              {
+                "Trigger": "DaysAfterSowing",
+                "DaysAfterSowing": 60,
+                "AmountKgNHa": 50.0,
+                "FertType": "UreaN"
+              }
+            ]
+          }
+        },
+        {
+          "ParameterOverrides": {},
+          "CropName": "Soybean",
+          "Years": 1,
+          "Management": {
+            "TillageType": "conventional",
+            "NitrogenMineralKgHa": 0.0,
+            "NitrogenOrganicKgHa": 0.0,
+            "SowingDate": null,
+            "Cultivar": "Generic_MG1",
+            "SowingDensity": 35.0,
+            "SowingDepth": 35.0,
+            "RowSpacing": 450.0,
+            "AutoIrrigate": true,
+            "IrrigationThreshold": 0.45,
+            "IrrigationTarget": 0.8,
+            "MaxIrrigationMm": 30.0,
+            "IrrigationWindowStart": "15-jun",
+            "IrrigationWindowEnd": "31-aug",
+            "SowingWindowStart": "1-may",
+            "SowingWindowEnd": "15-jun",
+            "SplitFertiliser": []
+          }
+        }
+      ],
+      "Cycles": 5
+    },
+    "fixed_parameter_overrides": {
+      "Wheat": {},
+      "Maize": {},
+      "Soybean": {}
+    }
+  },
+  "tradeoffs": {
+    "mean_yield_kgha": 5496.67244135069,
+    "soil_n_final_kgha": 14.065746269618646,
+    "datastore_path": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output\\spacing_GUALTIERI_RE_DEMO__GUALTIERI_LOAM_DEMO_001__gualtieri_5y_three_species.db",
+    "control_csv_path": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output\\report_GUALTIERI_RE_DEMO_GUALTIERI_LOAM_DEMO_001_gualtieri_5y_three_species.csv",
+    "daily_csv_path": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output\\daily_GUALTIERI_RE_DEMO_GUALTIERI_LOAM_DEMO_001_gualtieri_5y_three_species.csv",
+    "crop_summary_path": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_183612/output\\crop_summary_GUALTIERI_RE_DEMO_GUALTIERI_LOAM_DEMO_001_gualtieri_5y_three_species.csv",
+    "calibrated_json": null,
+    "timeseries_csv": null,
+    "harvest_csv": null
+  }
+}
