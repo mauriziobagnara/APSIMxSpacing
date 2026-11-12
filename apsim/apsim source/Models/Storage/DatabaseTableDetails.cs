@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using APSIM.Shared.Utilities;
-using PdfSharpCore.Pdf.Content;
 
 namespace Models.Storage
 {

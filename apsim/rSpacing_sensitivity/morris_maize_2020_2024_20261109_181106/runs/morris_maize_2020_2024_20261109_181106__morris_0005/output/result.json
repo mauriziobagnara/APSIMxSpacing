@@ -1,0 +1,168 @@
+{
+  "success": true,
+  "error": null,
+  "calibrated": false,
+  "bestParams": null,
+  "yields": {
+    "Wheat": 2489.0048826178927,
+    "Maize": 3981.844329204318,
+    "Soybean": 3770.7088986114077
+  },
+  "biomass": {
+    "Wheat": 10373.89846896643,
+    "Maize": 8859.587612565045,
+    "Soybean": 9182.251687398106
+  },
+  "run_id": "morris_maize_2020_2024_20261109_181106__morris_0005",
+  "simulation_unit_id": "GUALTIERI_RE_MORRIS__GUALTIERI_LOAM_MORRIS_001__morris_maize",
+  "engine": "Spacing.Tool2",
+  "metadata": {
+    "source": "RStudio",
+    "method": "Morris elementary effects",
+    "analysis_id": "morris_maize_2020_2024_20261109_181106",
+    "run_kind": "morris",
+    "run_index": "5",
+    "target_crop": "Maize",
+    "output_metric": "yield"
+  },
+  "inputs": {
+    "cell_id": "GUALTIERI_RE_MORRIS",
+    "latitude": 44.9,
+    "longitude": 10.63,
+    "soil_profile_id": "GUALTIERI_LOAM_MORRIS_001",
+    "soil_source": "Synthetic demo profile generated in R; not observed soil data",
+    "weather_file": "C:\\Users\\maurizio.bagnara\\Documents\\spacing-main\\apsim\\rSpacing_sensitivity\\morris_maize_2020_2024_20261109_181106\\runs\\morris_maize_2020_2024_20261109_181106__morris_0005\\weather\\GUALTIERI_RE_MORRIS_2020_2024.met",
+    "start_year": 2020,
+    "end_year": 2024,
+    "rotation": {
+      "Id": "morris_maize",
+      "Name": "Morris sensitivity Maize",
+      "Description": null,
+      "Crops": [
+        {
+          "ParameterOverrides": {},
+          "CropName": "Wheat",
+          "Years": 1,
+          "Management": {
+            "TillageType": "conventional",
+            "NitrogenMineralKgHa": 0.0,
+            "NitrogenOrganicKgHa": 0.0,
+            "SowingDate": null,
+            "Cultivar": "Hartog",
+            "SowingDensity": 180.0,
+            "SowingDepth": 35.0,
+            "RowSpacing": 180.0,
+            "AutoIrrigate": false,
+            "IrrigationThreshold": 0.5,
+            "IrrigationTarget": 0.85,
+            "MaxIrrigationMm": 40.0,
+            "IrrigationWindowStart": null,
+            "IrrigationWindowEnd": null,
+            "SowingWindowStart": "10-oct",
+            "SowingWindowEnd": "20-nov",
+            "SplitFertiliser": [
+              {
+                "Trigger": "DaysAfterSowing",
+                "DaysAfterSowing": 100,
+                "AmountKgNHa": 65.0,
+                "FertType": "UreaN"
+              },
+              {
+                "Trigger": "DaysAfterSowing",
+                "DaysAfterSowing": 145,
+                "AmountKgNHa": 40.0,
+                "FertType": "UreaN"
+              }
+            ]
+          }
+        },
+        {
+          "ParameterOverrides": {
+            "Leaf.Photosynthesis.RUE.FixedValue": 1.86666666666667,
+            "Phenology.Juvenile.Target.FixedValue": 100.0,
+            "Phenology.GrainFilling.Target.FixedValue": 766.666666666667,
+            "Phenology.FlagLeafToFlowering.Target.FixedValue": 100.0,
+            "Grain.MaximumGrainsPerCob.FixedValue": 400.0,
+            "Grain.MaximumPotentialGrainSize.FixedValue": 0.25
+          },
+          "CropName": "Maize",
+          "Years": 1,
+          "Management": {
+            "TillageType": "conventional",
+            "NitrogenMineralKgHa": 0.0,
+            "NitrogenOrganicKgHa": 0.0,
+            "SowingDate": null,
+            "Cultivar": "B_110",
+            "SowingDensity": 7.5,
+            "SowingDepth": 50.0,
+            "RowSpacing": 750.0,
+            "AutoIrrigate": true,
+            "IrrigationThreshold": 0.5,
+            "IrrigationTarget": 0.85,
+            "MaxIrrigationMm": 35.0,
+            "IrrigationWindowStart": "1-jun",
+            "IrrigationWindowEnd": "31-aug",
+            "SowingWindowStart": "1-apr",
+            "SowingWindowEnd": "10-may",
+            "SplitFertiliser": [
+              {
+                "Trigger": "DaysAfterSowing",
+                "DaysAfterSowing": 35,
+                "AmountKgNHa": 100.0,
+                "FertType": "UreaN"
+              }
+            ]
+          }
+        },
+        {
+          "ParameterOverrides": {},
+          "CropName": "Soybean",
+          "Years": 1,
+          "Management": {
+            "TillageType": "conventional",
+            "NitrogenMineralKgHa": 0.0,
+            "NitrogenOrganicKgHa": 0.0,
+            "SowingDate": null,
+            "Cultivar": "Generic_MG1",
+            "SowingDensity": 35.0,
+            "SowingDepth": 35.0,
+            "RowSpacing": 450.0,
+            "AutoIrrigate": true,
+            "IrrigationThreshold": 0.45,
+            "IrrigationTarget": 0.8,
+            "MaxIrrigationMm": 30.0,
+            "IrrigationWindowStart": "15-jun",
+            "IrrigationWindowEnd": "31-aug",
+            "SowingWindowStart": "1-may",
+            "SowingWindowEnd": "15-jun",
+            "SplitFertiliser": null
+          }
+        }
+      ],
+      "Cycles": 5
+    },
+    "fixed_parameter_overrides": {
+      "Wheat": {},
+      "Maize": {
+        "Leaf.Photosynthesis.RUE.FixedValue": 1.86666666666667,
+        "Phenology.Juvenile.Target.FixedValue": 100.0,
+        "Phenology.GrainFilling.Target.FixedValue": 766.666666666667,
+        "Phenology.FlagLeafToFlowering.Target.FixedValue": 100.0,
+        "Grain.MaximumGrainsPerCob.FixedValue": 400.0,
+        "Grain.MaximumPotentialGrainSize.FixedValue": 0.25
+      },
+      "Soybean": {}
+    }
+  },
+  "tradeoffs": {
+    "mean_yield_kgha": 3413.852703477873,
+    "soil_n_final_kgha": 13.313754683797129,
+    "datastore_path": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_sensitivity/morris_maize_2020_2024_20261109_181106/runs/morris_maize_2020_2024_20261109_181106__morris_0005/output\\spacing_GUALTIERI_RE_MORRIS__GUALTIERI_LOAM_MORRIS_001__morris_maize.db",
+    "control_csv_path": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_sensitivity/morris_maize_2020_2024_20261109_181106/runs/morris_maize_2020_2024_20261109_181106__morris_0005/output\\report_GUALTIERI_RE_MORRIS_GUALTIERI_LOAM_MORRIS_001_morris_maize.csv",
+    "daily_csv_path": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_sensitivity/morris_maize_2020_2024_20261109_181106/runs/morris_maize_2020_2024_20261109_181106__morris_0005/output\\daily_GUALTIERI_RE_MORRIS_GUALTIERI_LOAM_MORRIS_001_morris_maize.csv",
+    "crop_summary_path": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_sensitivity/morris_maize_2020_2024_20261109_181106/runs/morris_maize_2020_2024_20261109_181106__morris_0005/output\\crop_summary_GUALTIERI_RE_MORRIS_GUALTIERI_LOAM_MORRIS_001_morris_maize.csv",
+    "calibrated_json": null,
+    "timeseries_csv": null,
+    "harvest_csv": null
+  }
+}

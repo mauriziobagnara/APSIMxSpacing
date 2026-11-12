@@ -5,6 +5,7 @@ using Spacing.Core.Config;
 using Spacing.Core.Domain;
 using Spacing.Core.Simulation;
 using System.Text.Json;
+using Newtonsoft.Json.Linq;
 
 // =============================================================================
 // SPACING TOOL 2 — Calibrazione e simulazione on-demand
@@ -40,6 +41,29 @@ var configPath   = GetArg(args, "--config",        "spacing.config.json");
 var extMetFile   = GetArg(args, "--met-file",      null);
 var obsFilePath  = GetArg(args, "--observations",  null);  // CSV con dati calibrazione
 var calibParams  = GetArg(args, "--calib-params",  null);  // JSON parametri (default: calibration_params.json)
+var resultPath   = GetArg(args, "--result",        null);  // optional JSON result file for rSpacing
+var manifestPath = GetArg(args, "--manifest",      null);  // optional provenance manifest
+var requestDoc   = requestPath != null ? LoadRequestDocument(requestPath) : null;
+var requestBaseDirectory = requestPath == null
+    ? Directory.GetCurrentDirectory()
+    : Path.GetDirectoryName(Path.GetFullPath(requestPath))
+      ?? Directory.GetCurrentDirectory();
+
+// Values in the explicit CLI take precedence over request JSON.
+useMock  = useMock  || (requestDoc?["mock"]?.Value<bool?>() ?? false);
+useCalib = useCalib || (requestDoc?["calibrate"]?.Value<bool?>() ?? false);
+extMetFile  ??= requestDoc?["weather_file"]?.Value<string>() ?? requestDoc?["met_file"]?.Value<string>();
+obsFilePath ??= requestDoc?["observations_file"]?.Value<string>();
+calibParams ??= requestDoc?["calibration_parameters_file"]?.Value<string>();
+resultPath  ??= requestDoc?["result_file"]?.Value<string>();
+manifestPath ??= requestDoc?["manifest_file"]?.Value<string>();
+
+// Resolve portable input paths. Relative paths are anchored to the request
+// directory. If an absolute path came from another workstation, retry by file
+// name in the request/config/current directories and their parents.
+extMetFile = ResolveExistingInputFile(extMetFile, requestBaseDirectory, configPath);
+obsFilePath = ResolveExistingInputFile(obsFilePath, requestBaseDirectory, configPath);
+calibParams = ResolveExistingInputFile(calibParams, requestBaseDirectory, configPath);
 
 Console.Error.WriteLine("=== SPACING Tool 2 — Calibrazione e simulazione ===");
 
@@ -56,7 +80,7 @@ ISpacingDbClient dbClient = useMock
 
 // ---- Rotazione ----
 var rotation = requestPath != null
-    ? LoadRotationFromJson(requestPath)
+    ? LoadRotationFromJson(requestDoc)
     : BuildRotationFromArgs(args);
 
 if (rotation == null)
@@ -66,24 +90,50 @@ if (rotation == null)
 }
 
 // ---- Coordinate ----
-var lat    = double.Parse(GetArg(args, "--lat", "45.4"), System.Globalization.CultureInfo.InvariantCulture);
-var lon    = double.Parse(GetArg(args, "--lon", "9.2"),  System.Globalization.CultureInfo.InvariantCulture);
-var cellId = $"CELL_{(int)(Math.Abs(lat) * 10):D3}_{(int)(Math.Abs(lon) * 10):D3}";
+var latText = GetArg(args, "--lat", null);
+var lonText = GetArg(args, "--lon", null);
+var lat = latText != null
+    ? double.Parse(latText, System.Globalization.CultureInfo.InvariantCulture)
+    : requestDoc?["lat"]?.Value<double?>() ?? requestDoc?["latitude"]?.Value<double?>() ?? 45.4;
+var lon = lonText != null
+    ? double.Parse(lonText, System.Globalization.CultureInfo.InvariantCulture)
+    : requestDoc?["lon"]?.Value<double?>() ?? requestDoc?["longitude"]?.Value<double?>() ?? 9.2;
+var cellId = requestDoc?["cell_id"]?.Value<string>()
+             ?? $"CELL_{(int)(Math.Abs(lat) * 10):D3}_{(int)(Math.Abs(lon) * 10):D3}";
 
 Console.Error.WriteLine($"Cella: {cellId} | Rotazione: {rotation}");
 
 // ---- Suolo ----
-var soilProfiles = (await dbClient.GetSoilProfilesAsync(cellId)).ToList();
-var soil         = soilProfiles.OrderByDescending(p => p.AreaFraction).First();
+SoilProfile soil;
+if (requestDoc?["soil_profile"] is JObject soilJson)
+{
+    soil = soilJson.ToObject<SoilProfile>()
+           ?? throw new InvalidDataException("soil_profile non valido nel request JSON.");
+    soil.CellId ??= cellId;
+    soil.ProfileId ??= $"SOIL_{cellId}";
+    if (soil.Layers == null || soil.Layers.Count == 0)
+        throw new InvalidDataException("soil_profile.layers deve contenere almeno uno strato.");
+}
+else
+{
+    var soilProfiles = (await dbClient.GetSoilProfilesAsync(cellId)).ToList();
+    soil = soilProfiles.OrderByDescending(p => p.AreaFraction).First();
+}
 
 var unit = new SimulationUnit
 {
     Cell        = new() { Id = cellId, Lat = lat, Lon = lon },
     SoilProfile = soil,
     Rotation    = rotation,
-    StartYear   = config.StartYear,
-    EndYear     = config.EndYear
+    StartYear   = requestDoc?["start_year"]?.Value<int?>() ?? config.StartYear,
+    EndYear     = requestDoc?["end_year"]?.Value<int?>() ?? config.EndYear,
+    RunId       = requestDoc?["run_id"]?.Value<string>() ?? Guid.NewGuid().ToString("N")
 };
+if (requestDoc?["metadata"] is JObject metadata)
+    foreach (var item in metadata.Properties())
+        unit.Metadata[item.Name] = item.Value.Type == JTokenType.String
+            ? item.Value.Value<string>()
+            : item.Value.ToString(Newtonsoft.Json.Formatting.None);
 
 // ---- Pipeline APSIM ----
 var weatherAdapter = new WeatherAdapter(config.TempWeatherDir);
@@ -93,21 +143,24 @@ var runner         = new SimulationRunner(config.OutputDir);
 
 // ---- File meteo ----
 string metPath;
-if (extMetFile != null)
+if (!string.IsNullOrWhiteSpace(extMetFile))
 {
     if (!File.Exists(extMetFile))
-        throw new FileNotFoundException($"File .met non trovato: {extMetFile}");
-    metPath = extMetFile;
+        throw new FileNotFoundException(
+            $"File .met non trovato dopo la risoluzione portabile: {extMetFile}",
+            extMetFile);
+
+    metPath = Path.GetFullPath(extMetFile);
     Console.Error.WriteLine($"File meteo esterno: {metPath}");
 }
 else
 {
     var weather = await dbClient.GetWeatherAsync(
         cellId,
-        new DateOnly(config.StartYear, 1, 1),
-        new DateOnly(config.EndYear,   12, 31));
-    metPath = weatherAdapter.WriteMetFile(weather, config.StartYear, config.EndYear);
-    Console.Error.WriteLine($"File meteo: {metPath}");
+        new DateOnly(unit.StartYear, 1, 1),
+        new DateOnly(unit.EndYear, 12, 31));
+    metPath = weatherAdapter.WriteMetFile(weather, unit.StartYear, unit.EndYear);
+    Console.Error.WriteLine($"File meteo generato: {metPath}");
 }
 
 // ---- Calibrazione (opzionale) ----
@@ -208,6 +261,23 @@ var output = new
     bestParams = calibratedParams,
     yields     = result.MeanYieldKgHa,
     biomass    = result.MeanAbovegroundBiomassKgHa,
+    run_id     = unit.RunId,
+    simulation_unit_id = unit.Id,
+    engine      = "Spacing.Tool2",
+    metadata    = unit.Metadata,
+    inputs      = new
+    {
+        cell_id = cellId,
+        latitude = lat,
+        longitude = lon,
+        soil_profile_id = soil.ProfileId,
+        soil_source = soil.DataSource,
+        weather_file = Path.GetFullPath(metPath),
+        start_year = unit.StartYear,
+        end_year = unit.EndYear,
+        rotation = rotation,
+        fixed_parameter_overrides = rotation.Crops.ToDictionary(c => c.CropName, c => c.ParameterOverrides)
+    },
     tradeoffs  = new
     {
         mean_yield_kgha    = result.MeanYieldKgHa.Values.DefaultIfEmpty(0).Average(),
@@ -222,8 +292,23 @@ var output = new
     }
 };
 
-Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(
-    output, Newtonsoft.Json.Formatting.Indented));
+var outputJson = Newtonsoft.Json.JsonConvert.SerializeObject(
+    output, Newtonsoft.Json.Formatting.Indented);
+Console.WriteLine(outputJson);
+
+if (!string.IsNullOrWhiteSpace(resultPath))
+{
+    var fullResultPath = Path.GetFullPath(resultPath);
+    Directory.CreateDirectory(Path.GetDirectoryName(fullResultPath)!);
+    File.WriteAllText(fullResultPath, outputJson);
+}
+
+var resolvedManifestPath = manifestPath;
+if (string.IsNullOrWhiteSpace(resolvedManifestPath))
+    resolvedManifestPath = Path.Combine(config.OutputDir, $"run_manifest_{SanitizeFileName(unit.RunId)}.json");
+var fullManifestPath = Path.GetFullPath(resolvedManifestPath);
+Directory.CreateDirectory(Path.GetDirectoryName(fullManifestPath)!);
+File.WriteAllText(fullManifestPath, outputJson);
 
 // =============================================================================
 // Caricamento parametri di calibrazione da JSON esterno
@@ -478,14 +563,19 @@ static List<ReferenceObservation> BuildMockYieldObservations(
 
 // ---- Helpers ----
 
-static CropRotation LoadRotationFromJson(string path)
+static JObject LoadRequestDocument(string path)
 {
-    if (!File.Exists(path)) return null;
-    var json = File.ReadAllText(path);
-    dynamic req = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+    if (!File.Exists(path))
+        throw new FileNotFoundException($"Request JSON non trovato: {path}");
+    return JObject.Parse(File.ReadAllText(path));
+}
 
+static CropRotation LoadRotationFromJson(JObject req)
+{
+    if (req == null) return null;
     var crops = new List<RotationCrop>();
-    foreach (var c in req.crops)
+    dynamic dynamicReq = req;
+    foreach (var c in dynamicReq.crops)
     {
         var m = new ManagementPractice
         {
@@ -521,19 +611,33 @@ static CropRotation LoadRotationFromJson(string path)
             }
         }
 
-        crops.Add(new RotationCrop
+        var rotationCrop = new RotationCrop
         {
             CropName   = (string)c.name,
             Management = m
-        });
+        };
+        JToken cropToken = c;
+        var overrideToken = cropToken["parameter_overrides"] ?? cropToken["parameters"];
+        if (overrideToken is JObject overrides)
+        {
+            foreach (var property in overrides.Properties())
+            {
+                if (!double.TryParse(property.Value.ToString(),
+                    System.Globalization.NumberStyles.Float,
+                    System.Globalization.CultureInfo.InvariantCulture, out var value))
+                    throw new InvalidDataException($"Override non numerico: {rotationCrop.CropName}.{property.Name}");
+                rotationCrop.ParameterOverrides[property.Name] = value;
+            }
+        }
+        crops.Add(rotationCrop);
     }
 
     return new CropRotation
     {
-        Id     = (string)(req.id     ?? "tool2_custom"),
-        Name   = (string)(req.name   ?? "Rotazione personalizzata"),
+        Id     = (string)(dynamicReq.id     ?? "tool2_custom"),
+        Name   = (string)(dynamicReq.name   ?? "Rotazione personalizzata"),
         Crops  = crops,
-        Cycles = (int)(req.cycles ?? 3)
+        Cycles = (int)(dynamicReq.cycles ?? 3)
     };
 }
 
@@ -561,6 +665,69 @@ static ISpacingDbClient BuildHttpClient(SpacingConfig config)
     var http = new HttpClient { BaseAddress = new Uri(config.DbApiBaseUrl) };
     http.DefaultRequestHeaders.Add("X-Api-Key", config.DbApiKey);
     return new HttpSpacingDbClient(http);
+}
+
+static string ResolveExistingInputFile(string path, string requestBaseDirectory, string configPath)
+{
+    if (string.IsNullOrWhiteSpace(path))
+        return path;
+
+    var expanded = Environment.ExpandEnvironmentVariables(path.Trim());
+    var candidates = new List<string>();
+
+    void AddCandidate(string candidate)
+    {
+        if (string.IsNullOrWhiteSpace(candidate))
+            return;
+        try
+        {
+            var full = Path.GetFullPath(candidate);
+            if (!candidates.Contains(full, StringComparer.OrdinalIgnoreCase))
+                candidates.Add(full);
+        }
+        catch (Exception) when (candidate != expanded)
+        {
+            // Ignore only fallback candidates which cannot be normalised.
+        }
+    }
+
+    if (Path.IsPathRooted(expanded))
+        AddCandidate(expanded);
+    else
+    {
+        AddCandidate(Path.Combine(requestBaseDirectory, expanded));
+        var configDirectory = Path.GetDirectoryName(Path.GetFullPath(configPath));
+        if (!string.IsNullOrWhiteSpace(configDirectory))
+            AddCandidate(Path.Combine(configDirectory, expanded));
+        AddCandidate(Path.Combine(Directory.GetCurrentDirectory(), expanded));
+    }
+
+    var fileName = Path.GetFileName(expanded);
+    if (!string.IsNullOrWhiteSpace(fileName))
+    {
+        foreach (var start in new[]
+        {
+            requestBaseDirectory,
+            Path.GetDirectoryName(Path.GetFullPath(configPath)),
+            Directory.GetCurrentDirectory(),
+            AppContext.BaseDirectory
+        }.Where(directory => !string.IsNullOrWhiteSpace(directory)))
+        {
+            var directory = new DirectoryInfo(start);
+            for (var level = 0; directory != null && level < 8; level++, directory = directory.Parent)
+                AddCandidate(Path.Combine(directory.FullName, fileName));
+        }
+    }
+
+    return candidates.FirstOrDefault(File.Exists)
+           ?? candidates.FirstOrDefault()
+           ?? expanded;
+}
+
+static string SanitizeFileName(string value)
+{
+    var invalid = Path.GetInvalidFileNameChars();
+    return new string((value ?? "run").Select(c => invalid.Contains(c) ? '_' : c).ToArray());
 }
 
 static string GetArg(string[] args, string key, string defaultVal)

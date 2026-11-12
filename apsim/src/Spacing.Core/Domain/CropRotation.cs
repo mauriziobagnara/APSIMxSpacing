@@ -130,6 +130,9 @@ public class ManagementPractice
 /// </summary>
 public class RotationCrop
 {
+    /// <summary>Fixed APSIM cultivar/model overrides supplied by rSpacing. Keys omit the leading brackets, e.g. Phenology.Juvenile.Target.FixedValue.</summary>
+    public Dictionary<string, double> ParameterOverrides { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
     /// <summary>Nome del modello APSIM (es. "Sorghum", "Wheat", "Maize", "Grapevine").</summary>
     public string CropName { get; set; }
 

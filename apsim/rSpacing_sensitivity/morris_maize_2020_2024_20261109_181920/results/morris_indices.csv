@@ -1,0 +1,7 @@
+"factor","crop","role","parameter","lower","upper","default_reported","mu","mu_star","sigma","rank_mu_star"
+"maize__ue_biomass","Maize","ue_biomass","Leaf.Photosynthesis.RUE.FixedValue",1.2,3.2,2,38.5086908875299,38.6027283369257,26.4185043440721,1
+"maize__phenology_reproductive","Maize","phenology_reproductive","Phenology.GrainFilling.Target.FixedValue",400,950,730,25.4511717702039,25.4511717702039,21.773957000906,2
+"maize__phenology_vegetative","Maize","phenology_vegetative","Phenology.Juvenile.Target.FixedValue",100,350,210,23.3138196725701,24.7559767689337,33.997274167677,3
+"maize__grain_size","Maize","grain_size","Grain.MaximumPotentialGrainSize.FixedValue",0.15,0.45,0.3,23.7476008343659,23.7476008343659,14.5536402702091,4
+"maize__grain_number","Maize","grain_number","Grain.MaximumGrainsPerCob.FixedValue",400,900,700,17.2362055325371,18.2421491848834,19.0582737119592,5
+"maize__leaf_expansion","Maize","leaf_expansion","Phenology.FlagLeafToFlowering.Target.FixedValue",30,100,50,-1.48186735563782,1.64895448073652,2.07312552033946,6

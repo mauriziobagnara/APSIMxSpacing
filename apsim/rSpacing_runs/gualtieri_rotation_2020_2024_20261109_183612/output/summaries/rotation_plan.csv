@@ -1,0 +1,4 @@
+"Species","Cultivar","Sowing_window","Tillage","Mineral_N_total_kg_ha","Fertiliser_type","Irrigated","Irrigation_threshold","Irrigation_target","Max_irrigation_mm"
+"Wheat","Hartog","10-oct / 20-nov","minimum",150,"UreaN",TRUE,0.35,0.7,25
+"Maize","B_110","1-apr / 10-may","conventional",200,"UreaN",TRUE,0.5,0.85,35
+"Soybean","Generic_MG1","1-may / 15-jun","no-till",0,"none",TRUE,0.45,0.8,30

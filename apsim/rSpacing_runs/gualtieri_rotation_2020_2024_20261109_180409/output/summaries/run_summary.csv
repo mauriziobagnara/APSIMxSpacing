@@ -1,0 +1,2 @@
+"run_id","success","latitude","longitude","start_year","end_year","years","species_count","soil_layers","parameter_overrides","calibrated","mock_weather","datastore_path"
+"gualtieri_rotation_2020_2024_20261109_180409",TRUE,44.9,10.63,2020,2024,5,3,6,FALSE,FALSE,TRUE,"C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_runs/gualtieri_rotation_2020_2024_20261109_180409/output\spacing_GUALTIERI_RE_DEMO__GUALTIERI_LOAM_DEMO_001__gualtieri_5y_three_species.db"

@@ -6,6 +6,12 @@ namespace Spacing.Core.Domain;
 /// </summary>
 public class SimulationUnit
 {
+    /// <summary>Stable identifier supplied by the caller, normally one MCMC iteration or agronomic scenario.</summary>
+    public string RunId { get; set; }
+
+    /// <summary>Opaque provenance fields propagated to the machine-readable result.</summary>
+    public Dictionary<string, string> Metadata { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
     public string Id => $"{Cell.Id}__{SoilProfile.ProfileId}__{Rotation.Id}";
 
     public GridCell Cell { get; set; }

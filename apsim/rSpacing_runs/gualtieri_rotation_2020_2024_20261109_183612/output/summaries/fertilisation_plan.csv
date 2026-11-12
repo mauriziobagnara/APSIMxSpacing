@@ -1,0 +1,7 @@
+"Species","Cultivar","Trigger","Days_after_sowing","Amount_kg_N_ha","Fertiliser_type"
+"Wheat","Hartog","Sowing",0,30,"UreaN"
+"Wheat","Hartog","DaysAfterSowing",100,70,"UreaN"
+"Wheat","Hartog","DaysAfterSowing",145,50,"UreaN"
+"Maize","B_110","Sowing",0,50,"UreaN"
+"Maize","B_110","DaysAfterSowing",35,100,"UreaN"
+"Maize","B_110","DaysAfterSowing",60,50,"UreaN"

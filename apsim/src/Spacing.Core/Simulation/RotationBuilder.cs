@@ -135,8 +135,13 @@ public class RotationBuilder
         {
             Dictionary<string, double> overrides = null;
             cultivarOverrides?.TryGetValue(crop.CropName, out overrides);
-            parts.Add(BuildPlantNode(crop.CropName, overrides));
-            parts.Add(BuildSowingManager(crop, overrides));
+            var effectiveOverrides = new Dictionary<string, double>(crop.ParameterOverrides, StringComparer.OrdinalIgnoreCase);
+            if (overrides != null)
+                foreach (var item in overrides)
+                    effectiveOverrides[item.Key] = item.Value;
+            var appliedOverrides = effectiveOverrides.Count == 0 ? null : effectiveOverrides;
+            parts.Add(BuildPlantNode(crop.CropName, appliedOverrides));
+            parts.Add(BuildSowingManager(crop, appliedOverrides));
             parts.Add(BuildHarvestManager(crop));
 
             // ---- Fertilizzazione ----
@@ -655,6 +660,7 @@ public class RotationBuilder
         var code =
             "using Models.Core;\n" +
             "using Models.Soils;\n" +
+            "using Models.Interfaces;\n" +
             "using System;\n" +
             "using System.Linq;\n" +
             "using APSIM.Shared.Utilities;\n" +

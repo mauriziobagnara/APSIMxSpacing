@@ -1,0 +1,216 @@
+{
+  "id": "morris_maize",
+  "name": "Morris sensitivity Maize",
+  "run_id": "morris_maize_2020_2024_20261109_181920__morris_0038",
+  "metadata": {
+    "source": "RStudio",
+    "method": "Morris elementary effects",
+    "analysis_id": "morris_maize_2020_2024_20261109_181920",
+    "run_kind": "morris",
+    "run_index": "38",
+    "target_crop": "Maize",
+    "output_metric": "yield"
+  },
+  "mock": true,
+  "calibrate": false,
+  "lat": 44.9,
+  "lon": 10.63,
+  "cell_id": "GUALTIERI_RE_MORRIS",
+  "start_year": 2020,
+  "end_year": 2024,
+  "soil_profile": {
+    "ProfileId": "GUALTIERI_LOAM_MORRIS_001",
+    "CellId": "GUALTIERI_RE_MORRIS",
+    "SoilType": "Franco limoso dimostrativo",
+    "DataSource": "Synthetic demo profile generated in R; not observed soil data",
+    "AreaFraction": 1,
+    "Layers": [
+      {
+        "DepthTop": 0,
+        "DepthBottom": 15,
+        "Sand": 20,
+        "Silt": 58,
+        "Clay": 22,
+        "DUL": 0.31,
+        "LL15": 0.14,
+        "SAT": 0.46,
+        "SW": 0.28,
+        "OC": 1.45,
+        "BD": 1.28,
+        "PH": 7.2,
+        "NO3": 18,
+        "NH4": 2
+      },
+      {
+        "DepthTop": 15,
+        "DepthBottom": 30,
+        "Sand": 19,
+        "Silt": 59,
+        "Clay": 22,
+        "DUL": 0.32,
+        "LL15": 0.15,
+        "SAT": 0.45,
+        "SW": 0.29,
+        "OC": 1.15,
+        "BD": 1.33,
+        "PH": 7.3,
+        "NO3": 12,
+        "NH4": 1.5
+      },
+      {
+        "DepthTop": 30,
+        "DepthBottom": 60,
+        "Sand": 18,
+        "Silt": 57,
+        "Clay": 25,
+        "DUL": 0.33,
+        "LL15": 0.16,
+        "SAT": 0.44,
+        "SW": 0.3,
+        "OC": 0.75,
+        "BD": 1.39,
+        "PH": 7.4,
+        "NO3": 8,
+        "NH4": 1
+      },
+      {
+        "DepthTop": 60,
+        "DepthBottom": 90,
+        "Sand": 20,
+        "Silt": 54,
+        "Clay": 26,
+        "DUL": 0.32,
+        "LL15": 0.16,
+        "SAT": 0.43,
+        "SW": 0.29,
+        "OC": 0.48,
+        "BD": 1.43,
+        "PH": 7.5,
+        "NO3": 5,
+        "NH4": 0.7
+      },
+      {
+        "DepthTop": 90,
+        "DepthBottom": 120,
+        "Sand": 22,
+        "Silt": 52,
+        "Clay": 26,
+        "DUL": 0.31,
+        "LL15": 0.16,
+        "SAT": 0.42,
+        "SW": 0.28,
+        "OC": 0.32,
+        "BD": 1.46,
+        "PH": 7.6,
+        "NO3": 3.5,
+        "NH4": 0.5
+      },
+      {
+        "DepthTop": 120,
+        "DepthBottom": 150,
+        "Sand": 24,
+        "Silt": 50,
+        "Clay": 26,
+        "DUL": 0.3,
+        "LL15": 0.15,
+        "SAT": 0.41,
+        "SW": 0.27,
+        "OC": 0.24,
+        "BD": 1.49,
+        "PH": 7.7,
+        "NO3": 2.5,
+        "NH4": 0.4
+      }
+    ]
+  },
+  "result_file": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_sensitivity/morris_maize_2020_2024_20261109_181920/runs/morris_maize_2020_2024_20261109_181920__morris_0038/output/result.json",
+  "manifest_file": "C:/Users/maurizio.bagnara/Documents/spacing-main/apsim/rSpacing_sensitivity/morris_maize_2020_2024_20261109_181920/runs/morris_maize_2020_2024_20261109_181920__morris_0038/output/manifest.json",
+  "crops": [
+    {
+      "name": "Wheat",
+      "management": {
+        "cultivar": "Hartog",
+        "tillage_type": "minimum",
+        "nitrogen_mineral_kg_ha": 35,
+        "nitrogen_organic_kg_ha": 20,
+        "sowing_window_start": "10-oct",
+        "sowing_window_end": "20-nov",
+        "sowing_density": 180,
+        "sowing_depth": 35,
+        "row_spacing": 180,
+        "auto_irrigate": false,
+        "split_fertiliser": [
+          {
+            "trigger": "DaysAfterSowing",
+            "days_after_sowing": 100,
+            "amount_kg_n_ha": 65,
+            "fert_type": "UreaN"
+          },
+          {
+            "trigger": "DaysAfterSowing",
+            "days_after_sowing": 145,
+            "amount_kg_n_ha": 40,
+            "fert_type": "UreaN"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Maize",
+      "management": {
+        "cultivar": "B_110",
+        "tillage_type": "conventional",
+        "nitrogen_mineral_kg_ha": 55,
+        "nitrogen_organic_kg_ha": 25,
+        "sowing_window_start": "1-apr",
+        "sowing_window_end": "10-may",
+        "sowing_density": 7.5,
+        "sowing_depth": 50,
+        "row_spacing": 750,
+        "auto_irrigate": true,
+        "irrigation_threshold": 0.5,
+        "irrigation_target": 0.85,
+        "max_irrigation_mm": 35,
+        "irrigation_window_start": "1-jun",
+        "irrigation_window_end": "31-aug",
+        "split_fertiliser": [
+          {
+            "trigger": "DaysAfterSowing",
+            "days_after_sowing": 35,
+            "amount_kg_n_ha": 100,
+            "fert_type": "UreaN"
+          }
+        ]
+      },
+      "parameter_overrides": {
+        "Leaf.Photosynthesis.RUE.FixedValue": 1.2,
+        "Phenology.Juvenile.Target.FixedValue": 266.666666666667,
+        "Phenology.GrainFilling.Target.FixedValue": 950,
+        "Phenology.FlagLeafToFlowering.Target.FixedValue": 30,
+        "Grain.MaximumGrainsPerCob.FixedValue": 566.666666666667,
+        "Grain.MaximumPotentialGrainSize.FixedValue": 0.35
+      }
+    },
+    {
+      "name": "Soybean",
+      "management": {
+        "cultivar": "Generic_MG1",
+        "tillage_type": "no-till",
+        "nitrogen_mineral_kg_ha": 0,
+        "nitrogen_organic_kg_ha": 0,
+        "sowing_window_start": "1-may",
+        "sowing_window_end": "15-jun",
+        "sowing_density": 35,
+        "sowing_depth": 35,
+        "row_spacing": 450,
+        "auto_irrigate": true,
+        "irrigation_threshold": 0.45,
+        "irrigation_target": 0.8,
+        "max_irrigation_mm": 30,
+        "irrigation_window_start": "15-jun",
+        "irrigation_window_end": "31-aug"
+      }
+    }
+  ],
+  "cycles": 5
+}
